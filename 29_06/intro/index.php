@@ -1,5 +1,5 @@
 <?php
-require_once ('FirstClass.php');
+require_once('FirstClass.php');
 
 //$c = new FirstClass();
 $c = FirstClass::getInstance();
