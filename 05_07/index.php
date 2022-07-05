@@ -1,20 +1,12 @@
-<pre>
 <?php
-require_once ("vendor/autoload.php");
+require_once ("./vendor/autoload.php");
 
-use Mike\Class1 as Mike;
-use Pv021\Class1 as Pv;
+$header = new App\Design\Header();
+$footer = new App\Design\Footer();
 
-$v = new \Mike\Class1();
-echo $v;
+echo $header;
 
-$v2 = new \Pv021\Class1();
-echo $v2;
+$mail = new App\Mail\MailController();
+$mail->showForm();
 
-$v3 = new Mike();
-echo $v3;
-
-$v4 = new Pv();
-echo $v4;
-?>
-</pre>
+echo $footer;

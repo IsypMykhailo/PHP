@@ -5,7 +5,7 @@
     "license": "BeerWare",
     "autoload": {
         "psr-4": {
-            "Amazo\\0507\\": "src/",
+            "App\\": "src/",
             "Mike\\": "lib/Mike/",
             "Pv021\\": "lib/Pv021/"
         }
@@ -17,5 +17,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    }
 }
