@@ -1,13 +1,11 @@
 <?php
 
+namespace Mike;
+
 class Class1
 {
     function __toString()
     {
-        return __CLASS__ . "  Work \n";
+        return __CLASS__ . " Work Mike \n";
     }
-}
-
-class SomeClass{
-
 }

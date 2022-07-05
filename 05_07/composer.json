@@ -1,0 +1,19 @@
+{
+    "name": "amazo/05_07",
+    "description": "des",
+    "type": "lesson",
+    "license": "BeerWare",
+    "autoload": {
+        "psr-4": {
+            "Amazo\\0507\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "IsypMykhailo",
+            "email": "amazonkanameforme@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
