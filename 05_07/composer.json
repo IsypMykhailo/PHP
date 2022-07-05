@@ -5,7 +5,9 @@
     "license": "BeerWare",
     "autoload": {
         "psr-4": {
-            "Amazo\\0507\\": "src/"
+            "Amazo\\0507\\": "src/",
+            "Mike\\": "lib/Mike/",
+            "Pv021\\": "lib/Pv021/"
         }
     },
     "authors": [
