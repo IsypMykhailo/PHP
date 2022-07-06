@@ -7,7 +7,11 @@ use App\Views\Render;
 class HomeController
 {
     public function index(){
-        Render::view('home', []);
+        $varBug['names'] = [
+            "Вася", "Петя", "Коля"
+        ];
+        $varBug['header']['pageName'] = "Главная страница";
+        Render::view('home', $varBug);
         //echo "Work";
     }
 }
