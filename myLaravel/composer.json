@@ -1,2 +1,22 @@
 {
+  "name": "mike/mylaravel",
+  "description": "Мой первый CMS на php",
+  "type": "library",
+  "license": "BeerWare",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Config\\": "config/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Mykhailo Isyp",
+      "email": "mikeisisyp@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "phpmailer/phpmailer": "dev-master"
+  }
 }
