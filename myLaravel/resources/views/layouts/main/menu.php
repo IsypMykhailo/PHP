@@ -9,6 +9,9 @@
         <li>
             <a href="<?=$_SERVER['PHP_SELF'];?>?controller=PageController&method=contact">Contacts</a>
         </li>
+        <li>
+            <a href="<?=$_SERVER['PHP_SELF'];?>?controller=AvatarController&method=form">Form</a>
+        </li>
     </ul>
 </nav>
 <?php
