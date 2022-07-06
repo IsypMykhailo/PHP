@@ -4,5 +4,9 @@
         echo "<h2>" . $varBug['header']['pageName'] . "</h2>";
     }
     ?>
+
+    <?php
+    require_once ($layoutDir . "/menu.php");
+    ?>
 </header>
 <?php
