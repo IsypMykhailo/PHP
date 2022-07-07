@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Mail\To;
 use App\Views\Render;
 
 class MailController
@@ -69,7 +70,12 @@ class MailController
 
         var_dump($_POST);
         // Отсылка формы и вывод результатов
-
+        $body = $_POST['email'] . "\n" . $_POST['name'] . "\n" . $_POST['message'];
+        $res = To::send(\Config\App::$adminEmail, $_POST['name'], $body);
+        echo "<h1>Результаты отправки</h1>";
+        echo "<pre>";
+        print_r($res);
+        echo "</pre>";
         // var_dump($_POST);
     }
 }

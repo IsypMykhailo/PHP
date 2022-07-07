@@ -1,7 +1,7 @@
 <form class="g-3 m-3" action="<?=$_SERVER['PHP_SELF'];?>?controller=MailController&method=send" method="post">
     <?php
     \App\Views\Forms\Input::input(
-        "Email", "email", "email", ["placeholder" => "Email"],
+        "Mail", "email", "email", ["placeholder" => "Mail"],
         $varBug['formData']['email'] ?? null,
         $varBug['err']['email'] ?? null);
 
@@ -15,8 +15,8 @@
         null);
     ?>
     <div class="mb-3">
-        <label for="inputMessage" class="visually-hidden">Message</label>
-        <textarea type="text" class="form-control" id="inputMessage" placeholder="Message"></textarea>
+        <label for="message" class="visually-hidden">Message</label>
+        <textarea type="text" class="form-control" id="inputMessage" name="message" id="message" placeholder="Message"></textarea>
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary mb-3">Send</button>
