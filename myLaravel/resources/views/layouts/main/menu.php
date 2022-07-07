@@ -12,6 +12,9 @@
         <li>
             <a href="<?=$_SERVER['PHP_SELF'];?>?controller=AvatarController&method=form">Form</a>
         </li>
+        <li>
+            <a href="<?=$_SERVER['PHP_SELF'];?>?controller=MailController&method=show">Mail Form</a>
+        </li>
     </ul>
 </nav>
 <?php
