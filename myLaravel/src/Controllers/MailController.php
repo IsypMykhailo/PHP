@@ -24,8 +24,8 @@ class MailController
         /**
          * Проверка почты
          */
-        if(isset($_POST['Email'])) {
-            if(strlen($_POST['Email']) < 3){
+        if(isset($_POST['email'])) {
+            if(strlen($_POST['email']) < 3){
                 $err['email']['len'] = "Слишком короткое";
             }
             // ....
@@ -36,8 +36,8 @@ class MailController
         /**
          * Проверка имени
          */
-        if(isset($_POST['Name'])) {
-            if(strlen($_POST['Name']) < 3){
+        if(isset($_POST['name'])) {
+            if(strlen($_POST['name']) < 3){
                 $err['name']['len'] = "Имя слишком короткое";
             }
             // ....
@@ -67,6 +67,7 @@ class MailController
             Render::view("mail/form", $varBug);
         }
 
+        var_dump($_POST);
         // Отсылка формы и вывод результатов
 
         // var_dump($_POST);

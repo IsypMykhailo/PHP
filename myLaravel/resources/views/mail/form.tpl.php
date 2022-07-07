@@ -1,34 +1,24 @@
-<form class="row g-3" action="<?=$_SERVER['PHP_SELF'];?>?controller=MailController&method=send" method="post">
-    <div class="col-auto">
-        <label for="email" class="visually-hidden">Email</label>
-        <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
-    </div>
-    <div class="col-auto">
-        <label for="name" class="visually-hidden">Name</label>
-        <input type="text" class="form-control" name="Name" id="name" placeholder="Name">
-        <?php
-        if(isset($varBug['err']['name'])){
-            echo '<div class="alert alert-danger" role="alert">';
+<form class="g-3 m-3" action="<?=$_SERVER['PHP_SELF'];?>?controller=MailController&method=send" method="post">
+    <?php
+    \App\Views\Forms\Input::input(
+        "Email", "email", "email", ["placeholder" => "Email"],
+        $varBug['formData']['email'] ?? null,
+        $varBug['err']['email'] ?? null);
 
-            foreach($varBug['err']['name'] as $key => $value){
-                echo "<p> $key => $value </p>";
-            }
-            echo '</div>';
-        }
-        ?>
-    </div>
-    <!--<div class="input-group">
-        <label for="tel" class="visually-hidden">Phone</label>
-        <input type="tel" id="tel" class="form-control" placeholder="Phone">
-    </div>-->
-    <div class="col-auto">
-        <input type="tel" id="tel" class="form-control">
-    </div>
-    <div class="col-auto">
+    \App\Views\Forms\Input::input(
+        "Name", "text", "name", ["placeholder" => "Name"],
+        $varBug['formData']['name'] ?? null,
+        $varBug['err']['name'] ?? null);
+    \App\Views\Forms\Input::input(
+        "Phone", "tel", "tel", ["id" => "tel"],
+        $varBug['formData']['tel'] ?? null,
+        null);
+    ?>
+    <div class="mb-3">
         <label for="inputMessage" class="visually-hidden">Message</label>
         <textarea type="text" class="form-control" id="inputMessage" placeholder="Message"></textarea>
     </div>
-    <div class="col-auto">
+    <div class="mb-3">
         <button type="submit" class="btn btn-primary mb-3">Send</button>
     </div>
 </form>
