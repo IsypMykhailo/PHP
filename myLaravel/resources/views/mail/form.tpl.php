@@ -21,7 +21,7 @@
         <label for="tel" class="visually-hidden">Phone</label>
         <input type="tel" id="tel" class="form-control" placeholder="Phone">
     </div>-->
-    <div class="input-group">
+    <div class="col-auto">
         <input type="tel" id="tel" class="form-control">
     </div>
     <div class="col-auto">
