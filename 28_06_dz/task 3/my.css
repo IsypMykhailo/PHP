@@ -1,0 +1,10 @@
+.item{
+    color:yellow;
+    padding:30px;
+    background-color:green;
+    float:left;
+}
+.active, .item:hover{
+    color:green;
+    background-color:yellow;
+}
