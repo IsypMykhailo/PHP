@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "896219fd2e76a15731751a3f8bff56ba",
+    "content-hash": "67c329cd58982adbe5e660062a07a5b8",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "375d77cef7c96fded38a21c90becef6f8c2a96ca"
+                "reference": "fb45a2e39b49291dc9eeaf944898363d3ab5c8aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/375d77cef7c96fded38a21c90becef6f8c2a96ca",
-                "reference": "375d77cef7c96fded38a21c90becef6f8c2a96ca",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/fb45a2e39b49291dc9eeaf944898363d3ab5c8aa",
+                "reference": "fb45a2e39b49291dc9eeaf944898363d3ab5c8aa",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-29T09:10:48+00:00"
+            "time": "2022-07-09T15:03:22+00:00"
         }
     ],
     "packages-dev": [],
@@ -94,7 +94,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }
