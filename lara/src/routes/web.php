@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/about', function () {
     return view('pages.about',
         [
-            'varName' => 'varValue' // Передача данных осуществляется через массив
+            'varName' => 'varValue', // Передача данных осуществляется через массив
+            'records' => [1,2,3],
+            'forCase' => 4
         ]
     );
 });
