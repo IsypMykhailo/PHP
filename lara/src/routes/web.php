@@ -33,3 +33,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/entity', [App\Http\Controllers\EntityController::class, 'index'])->name('entity.read.all');
 Route::get('/student', [App\Http\Controllers\EntityController::class, 'index'])->name('entity.read.all');
 Route::post('/entity', [App\Http\Controllers\EntityController::class, 'store'])->name('entity.store');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

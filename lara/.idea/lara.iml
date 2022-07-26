@@ -120,6 +120,14 @@
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/arrilot/laravel-widgets" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/larapack/doctrine-support" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/tcg/voyager" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/intervention/image" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/doctrine/deprecations" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
