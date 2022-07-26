@@ -11,10 +11,10 @@ class StoreStudentRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    /*public function authorize()
     {
         return false;
-    }
+    }*/
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +24,9 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:10|max:100',
+            'age' => 'required|integer|min:1|max:3',
+            'group' => 'required|string|min:3|max:50'
         ];
     }
 }

@@ -31,4 +31,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/entity', [App\Http\Controllers\EntityController::class, 'index'])->name('entity.read.all');
+Route::get('/student', [App\Http\Controllers\EntityController::class, 'index'])->name('entity.read.all');
 Route::post('/entity', [App\Http\Controllers\EntityController::class, 'store'])->name('entity.store');
