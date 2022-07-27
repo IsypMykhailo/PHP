@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/rel/one-to-one/',
+    [App\Http\Controllers\RelController::class, 'OneToOne']);
+
 Route::get('/about', function () {
     return view('pages.about',
         [
