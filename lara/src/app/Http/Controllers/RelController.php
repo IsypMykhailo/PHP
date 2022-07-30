@@ -2,13 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Post;
 use App\Models\Profile;
+use App\Models\Tag;
 use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Cache;
 
 class RelController extends Controller
 {
+    public function ManyToMany(){
+        //$tags = Tag::all();
+        // вывести все посты с метками
+        //$posts = Tag::find(2)->posts;
+        $posts = Tag::query()->where('id',1)->first()->posts;
+        Debugbar::info($posts);
+
+        $tags = Tag::query()->where('id', 1)->with('posts')->get();
+        Debugbar::info($tags);
+
+        foreach ($tags as $tag){
+            foreach($tag->posts as $post){
+                Debugbar::info($post->toArray());
+            }
+        }
+
+        return view('home');
+    }
+
+    public function OneToMany(){
+        $laravelPost = Category::query()->where('slug', 'laravel')->first()->posts;
+        Debugbar::info($laravelPost);
+
+        $laravelPost2 = Post::query()->where('category_id', 3)->get();
+        Debugbar::info($laravelPost2);
+
+        return view('home');
+    }
+
     public function OneToOne(){
         $allUser = User::all();
         //dd($allUser);

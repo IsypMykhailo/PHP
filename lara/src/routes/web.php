@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/rel/one-to-one/',
     [App\Http\Controllers\RelController::class, 'OneToOne']);
 
+Route::get('/rel/one-to-many/',
+    [App\Http\Controllers\RelController::class, 'OneToMany']);
+
+Route::get('/rel/many-to-many/',
+    [App\Http\Controllers\RelController::class, 'ManyToMany']);
+
 Route::get('/about', function () {
     return view('pages.about',
         [
