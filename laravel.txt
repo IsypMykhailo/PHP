@@ -1,0 +1,26 @@
+1. Создание базы
+2. composer create-project laravel/laravel src
+3. Настройка env: db, App_URL=http://127.0.0.1:8000, mailer
+mailer:
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=amazonkanameforme@gmail.com
+MAIL_PASSWORD=tprhdpvcvfnwzfew
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="amazonkanameforme@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"
+4. cd src
+5. создать файл artisan.cmd с кодом:
+@echo off
+php ./artisan %*
+6. ./artisan storage:link
+7. ./artisan serve
+8. ./artisan migrate
+9. composer require laravel/ui
+10. ./artisan ui bootstrap --auth
+11. npm install
+12. npm run dev
+13. npm install laravel-mix --save-dev
+14. npx mix watch
+15. npx mix watch (2 раз)
