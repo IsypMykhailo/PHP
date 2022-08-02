@@ -33,10 +33,10 @@ class RelController extends Controller
 
     public function OneToMany(){
         $laravelPost = Category::query()->where('slug', 'laravel')->first()->posts;
-        Debugbar::info($laravelPost);
+        Debugbar::info($laravelPost->toArray());
 
-        $laravelPost2 = Post::query()->where('category_id', 3)->get();
-        Debugbar::info($laravelPost2);
+        /*$laravelPost2 = Post::query()->where('category_id', 3)->get();
+        Debugbar::info($laravelPost2->toArray());*/
 
         return view('home');
     }
