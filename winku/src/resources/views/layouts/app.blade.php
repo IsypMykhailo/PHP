@@ -428,10 +428,11 @@
                         </li>
                     </ul>
                     <div class="user-img">
-                        <img src="{{asset('images/resources/admin.jpg')}}" alt="">
+                        <!--<img src="{{asset('images/resources/admin.jpg')}}" alt="">-->
+                        <img src="{{asset('/storage/'.Auth::user()->avatar)}}" alt="">
                         <span class="status f-online"></span>
                         <div class="user-setting">
-                            <a href="#" title=""><i class="ti-user"></i> view profile</a>
+                            <a href="{{url('/'.Auth::user()->username)}}" title=""><i class="ti-user"></i> view profile</a>
                             <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                             <a href="#" title=""><i class="ti-target"></i>activity log</a>
                             <a href="#" title=""><i class="ti-settings"></i>account setting</a>
