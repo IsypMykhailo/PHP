@@ -24,3 +24,5 @@ php ./artisan %*
 13. npm install laravel-mix --save-dev
 14. npx mix watch
 15. npx mix watch (2 раз)
+16. composer require tcg/voyager
+17. ./artisan voyager:install --with-dummy
