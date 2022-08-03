@@ -12,6 +12,9 @@ use App\Http\Controllers\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('file', [\App\Http\Controllers\UploadFileController::class, 'showUploadFile']);
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'

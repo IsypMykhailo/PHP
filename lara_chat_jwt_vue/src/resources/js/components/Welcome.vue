@@ -1,5 +1,6 @@
 <template>
-    <h1>{{ title }}</h1>
+
+    <RouterView></RouterView>
 </template>
 <script>
 export default {

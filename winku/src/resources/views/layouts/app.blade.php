@@ -432,7 +432,7 @@
                         <img src="{{asset('/storage/'.Auth::user()->avatar)}}" alt="">
                         <span class="status f-online"></span>
                         <div class="user-setting">
-                            <a href="{{url('/'.Auth::user()->username)}}" title=""><i class="ti-user"></i> view profile</a>
+                            <a href="{{url('/' . Auth::user()->username)}}" title=""><i class="ti-user"></i> view profile</a>
                             <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                             <a href="#" title=""><i class="ti-target"></i>activity log</a>
                             <a href="#" title=""><i class="ti-settings"></i>account setting</a>
@@ -600,7 +600,7 @@
     </div><!-- side panel -->
 
     <script data-cfasync="false" src="{{asset('../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script><script src="js/main.min.js"></script>
-    <script src="{{asset('js/script.js')}}"></script>
+        <script src="{{asset('js/script.js')}}"></script>
     <script src="{{asset('js/map-init.js')}}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
     </div>

@@ -20,10 +20,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/{username}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
-
-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/{username}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+Route::post('/{username}', [App\Http\Controllers\EditProfileController::class, 'editAvatar'])->name('editAvatar');
+
+
