@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/{username}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
-Route::post('/{username}', [App\Http\Controllers\EditProfileController::class, 'editAvatar'])->name('editAvatar');
+Route::post('/{username}/updateAvatar', [App\Http\Controllers\EditProfileController::class, 'editAvatar'])->name('editAvatar');
+Route::post('/{username}/updateBackground', [App\Http\Controllers\EditProfileController::class, 'editBackground'])->name('editBackground');
 
 

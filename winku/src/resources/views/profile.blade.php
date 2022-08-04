@@ -3,16 +3,17 @@
 @section('content')
     <section>
         <div class="feature-photo">
-            <figure><img src="images/resources/timeline-1.jpg" alt=""></figure>
+            <figure><img src="{{asset('/storage/'.Auth::user()->profile->profileBackground)}}" alt=""></figure>
             <div class="add-btn">
                 <span>1205 followers</span>
                 <a href="#" title="" data-ripple="">Add Friend</a>
             </div>
-            <form class="edit-phto">
+            <form class="edit-phto" id="editBackground" method="POST" action="{{url('/' . Auth::user()->username . '/updateBackground')}}" enctype="multipart/form-data">
+                @csrf
                 <i class="fa fa-camera-retro"></i>
                 <label class="fileContainer">
                     Edit Cover Photo
-                    <input type="file"/>
+                    <input onchange="this.form.submit();" id="background" name="background" type="file"/>
                 </label>
             </form>
             <div class="container-fluid">
@@ -21,7 +22,7 @@
                         <div class="user-avatar">
                             <figure>
                                 <img src="{{asset('/storage/'.Auth::user()->avatar)}}" alt="">
-                                <form class="edit-phto" id="editAvatar" method="POST" action="{{url('/' . Auth::user()->username)}}" enctype="multipart/form-data">
+                                <form class="edit-phto" id="editAvatar" method="POST" action="{{url('/' . Auth::user()->username . '/updateAvatar')}}" enctype="multipart/form-data">
                                     @csrf
                                     <i class="fa fa-camera-retro"></i>
                                     <label class="fileContainer">
