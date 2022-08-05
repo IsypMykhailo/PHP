@@ -11,6 +11,11 @@ import { createPinia } from 'pinia'
 const pinia = createPinia()
 app.use(pinia)
 
+// Подключение системы коротких сообщений
+import Toaster from '@meforma/vue-toaster'
+app.use(Toaster)
+
+
 // Подключение маршрутов
 import router from "./router";
 app.use(router)

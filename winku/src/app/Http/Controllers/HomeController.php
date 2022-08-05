@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,26 @@ class HomeController extends Controller
     }
 
     public function profile($username){
-        $username = Auth::user()->username;
-        return view('profile');
+        if(User::query()->where('username', $username)->first() === null){
+            return view('no_user');
+        }
+        else {
+            $username = Auth::user()->username;
+            //$username = User::query()->where('username', '===', '');
+            return view('profile');
+        }
+    }
+
+    public function emailConfirmation($username){
+        $user = User::query()->where('username', $username)->first();
+        $user->email_verified_at = date('Y-m-d h:i:s a', time());
+        $user->save();
+        return view('email_success');
+    }
+
+    function redirect($url, $statusCode = 303)
+    {
+        header('Location: ' . $url, true, $statusCode);
+        die();
     }
 }
