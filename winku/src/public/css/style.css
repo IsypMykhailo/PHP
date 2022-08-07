@@ -1141,12 +1141,12 @@ header.sticky {
     text-shadow: 0 2px 0 #4a4a4a;
 }
 
-.add-btn > a:hover {
+.add-btn > a:hover, .add-btn > form > input:hover {
     background: transparent none repeat scroll 0 0;
     border: 1px solid;
 }
 
-.add-btn > a {
+.add-btn > a, .add-btn > form > input {
     border-radius: 2px;
     color: #fff;
     display: inline-block;
@@ -2733,7 +2733,7 @@ li.google {
 /*--- svg play button ---*/
 
 .edit-phto,
-.add-btn > a {
+.add-btn > a, .add-btn > form > input {
     -webkit-transition: all 0.3s linear 0s;
     -moz-transition: all 0.3s linear 0s;
     -o-transition: all 0.3s linear 0s;

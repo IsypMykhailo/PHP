@@ -46,9 +46,5 @@ class HomeController extends Controller
         return view('email_success');
     }
 
-    function redirect($url, $statusCode = 303)
-    {
-        header('Location: ' . $url, true, $statusCode);
-        die();
-    }
+
 }

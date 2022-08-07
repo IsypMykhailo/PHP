@@ -33,3 +33,5 @@ Route::get('/{username}/edit-profile-basic', [App\Http\Controllers\EditProfileCo
 Route::post('/{username}/updateProfileBasic', [App\Http\Controllers\EditProfileController::class, 'updateProfileBasic'])->name('updateProfileBasic');
 Route::get('/{username}/changePassword', [App\Http\Controllers\EditProfileController::class, 'changePassword'])->name('changePassword');
 Route::post('/{username}/updatePassword', [App\Http\Controllers\EditProfileController::class, 'updatePassword'])->name('updatePassword');
+Route::post('/{username}/follow', [App\Http\Controllers\RelController::class, 'follow'])->name('follow');
+Route::post('/{username}/unfollow', [App\Http\Controllers\RelController::class, 'unfollow'])->name('unfollow');

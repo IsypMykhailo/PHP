@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Redirect;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,11 +34,12 @@ class EditProfileController extends Controller
         /*$new_image = imagecreatetruecolor($width, $height);
         imagecopyresampled($new_image, $image, 0, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
         $image = $new_image;*/
-        (new \App\Helpers\ImageResize)->cutImage($filename, 400, 400);
+        (new ImageResize)->cutImage($filename, 400, 400);
 
         $user->avatar = $filename;
         $user->save();
-        $this->redirect('/' . $username);
+        (new Redirect)->redirect('/'.$username);
+        //$this->redirect('/' . $username);
         return view('profile');
     }
 
@@ -52,11 +54,12 @@ class EditProfileController extends Controller
         /*$new_image = imagecreatetruecolor($width, $height);
         imagecopyresampled($new_image, $image, 0, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
         $image = $new_image;*/
-        (new \App\Helpers\ImageResize)->cutBackground($filename, 1366, 400);
+        (new ImageResize)->cutBackground($filename, 1366, 400);
 
         $profile->profileBackground = $filename;
         $profile->save();
-        $this->redirect('/' . $username);
+        (new Redirect)->redirect('/'.$username);
+        //$this->redirect('/' . $username);
         return view('profile');
     }
 
@@ -76,7 +79,8 @@ class EditProfileController extends Controller
         $user->save();
         $profile->save();
         $username = Auth::user()->username;
-        $this->redirect('/' . $username);
+        (new Redirect)->redirect('/'.$username);
+        //$this->redirect('/' . $username);
         return view('profile');
     }
 
@@ -94,13 +98,14 @@ class EditProfileController extends Controller
         $username = Auth::user()->username;
         $user->password = Hash::make($request->get('password'));
         $user->save();
-        $this->redirect('/' . $username);
+        (new Redirect)->redirect('/'.$username);
+        //$this->redirect('/' . $username);
         return view('profile');
     }
 
-    function redirect($url, $statusCode = 303)
+    /*function redirect($url, $statusCode = 303)
     {
         header('Location: ' . $url, true, $statusCode);
         die();
-    }
+    }*/
 }

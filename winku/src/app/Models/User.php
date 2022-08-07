@@ -17,6 +17,16 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasOne(Profile::class);
     }
 
+    public function followers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Follower::class);
+    }
+
+    /*public function followings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Following::class);
+    }*/
+
     /**
      * The attributes that are mass assignable.
      *

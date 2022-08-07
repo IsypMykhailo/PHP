@@ -1,9 +1,9 @@
 /*=========================
 	FONT COLOR
 =========================*/
-.product-carousel .owl-nav .owl-prev::before, 
+.product-carousel .owl-nav .owl-prev::before,
 .product-carousel .owl-nav .owl-next::before,
-.product-caro .owl-prev:hover:before, 
+.product-caro .owl-prev:hover:before,
 .product-caro .owl-next:hover:before,
 .log-reg-area form .forgot-pwd,
 .log-reg-area form .already-have,
@@ -36,18 +36,18 @@ a.forgot-pwd,
 .friend-meta > h4 a:hover,
 .x_title > h2,
 .post-meta .detail > span,
-.add-btn > a:hover,
+.add-btn > a:hover, .add-btn > form > input:hover,
 .top-area > ul.main-menu > li > ul li a:hover,
 .dropdowns.active > a i,
 .user-setting > a i,
-.form-group input.form-file ~ .control-label, 
-.form-group input.has-value ~ .control-label, 
-.form-group input:focus ~ .control-label, 
-.form-group input:valid ~ .control-label, 
-.form-group select ~ .control-label, 
-.form-group textarea.form-file ~ .control-label, 
-.form-group textarea.has-value ~ .control-label, 
-.form-group textarea:focus ~ .control-label, 
+.form-group input.form-file ~ .control-label,
+.form-group input.has-value ~ .control-label,
+.form-group input:focus ~ .control-label,
+.form-group input:valid ~ .control-label,
+.form-group select ~ .control-label,
+.form-group textarea.form-file ~ .control-label,
+.form-group textarea.has-value ~ .control-label,
+.form-group textarea:focus ~ .control-label,
 .form-group textarea:valid ~ .control-label,
 .flaged > h3,
 .invition .friend-meta a.invite:hover,
@@ -84,7 +84,7 @@ blockquote,
 .job-detail > ul li i,
 .company-intro > a
 {
-	color: #088dcd;	
+	color: #088dcd;
 }
 svg{
 stroke: #fff;
@@ -99,7 +99,7 @@ path.icon{
 =========================*/
 #nprogress .bar,
 .timeline-info > ul li a::before,
-.add-btn > a,
+.add-btn > a, .add-btn > form > input,
 .activitiez > li::before,
 form button,
 .colla-apps > li a:hover,
@@ -157,7 +157,7 @@ a.addnewforum,
 	BORDER COLOR
 =========================*/
 .topbar .form-search input:focus,
-.add-btn > a:hover,
+.add-btn > a:hover, .add-btn > form > input:hover,
 .edit-phto:hover,
 .colla-apps > li a:hover,
 .user-avatar:hover .edit-phto,
@@ -167,7 +167,7 @@ a.addnewforum,
 a.btn2:hover,
 .single-btn > li > a.active
 {
-	border-color: #088dcd;	
+	border-color: #088dcd;
 }
 
 #nprogress .spinner-icon{
@@ -175,7 +175,7 @@ a.btn2:hover,
 }
 #nprogress .spinner-icon
 {
-	border-top-color: #088dcd;		
+	border-top-color: #088dcd;
 }
 .timeline-info > ul li a:after{
 	border-bottom-color: #088dcd;

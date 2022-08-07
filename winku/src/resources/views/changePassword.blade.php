@@ -10,10 +10,14 @@
         <div class="feature-photo">
             <figure><img src="{{asset('/storage/'.User::query()->where('username', $username)->first()->profile->profileBackground)}}" alt=""></figure>
             <div class="add-btn">
-                <span>1205 followers</span>
-                @if($username !== Auth::user()->username)
-                    <a href="#" title="" data-ripple="">Add Friend</a>
+                @if(User::query()->where('username', $username)->first()->followers !== null)
+                    <span>{{count(User::query()->where('username', $username)->first()->followers)}} followers</span>
+                @else
+                    <span>0 followers</span>
                 @endif
+                <!--@//if($username !== Auth::user()->username)
+                    <a href="#" title="" data-ripple="">Add Friend</a>
+                @//endif-->
             </div>
             <form class="edit-phto" id="editBackground" method="POST"
                   action="{{url('/' . $username . '/updateBackground')}}" enctype="multipart/form-data">
