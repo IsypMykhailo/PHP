@@ -23,6 +23,24 @@
 
     <!-- Scripts -->
     <!--@vite(['resources/sass/app.scss', 'resources/js/app.js'])-->
+    <style>
+        .follower_img{
+            width:15%;
+            height:15%;
+            border: 1px solid rgba(0,0,0,0);
+            border-radius: 50%;
+            float:left;
+            margin-right:5px;
+        }
+        .username{
+            color:black;
+            float:left;
+        }
+        .centerBlock{
+            width:90%;
+            margin:auto;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

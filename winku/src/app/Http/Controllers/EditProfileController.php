@@ -103,6 +103,28 @@ class EditProfileController extends Controller
         return view('profile');
     }
 
+    public function followers($username){
+        if(User::query()->where('username', $username)->first() === null){
+            return view('no_user');
+        }
+        else {
+            $username = Auth::user()->username;
+            //$username = User::query()->where('username', '===', '');
+            return view('followers');
+        }
+    }
+
+    public function following($username){
+        if(User::query()->where('username', $username)->first() === null){
+            return view('no_user');
+        }
+        else {
+            $username = Auth::user()->username;
+            //$username = User::query()->where('username', '===', '');
+            return view('following');
+        }
+    }
+
     /*function redirect($url, $statusCode = 303)
     {
         header('Location: ' . $url, true, $statusCode);

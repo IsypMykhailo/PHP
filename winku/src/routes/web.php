@@ -35,3 +35,5 @@ Route::get('/{username}/changePassword', [App\Http\Controllers\EditProfileContro
 Route::post('/{username}/updatePassword', [App\Http\Controllers\EditProfileController::class, 'updatePassword'])->name('updatePassword');
 Route::post('/{username}/follow', [App\Http\Controllers\RelController::class, 'follow'])->name('follow');
 Route::post('/{username}/unfollow', [App\Http\Controllers\RelController::class, 'unfollow'])->name('unfollow');
+Route::get('/{username}/followers', [App\Http\Controllers\EditProfileController::class, 'followers'])->name('followers');
+Route::get('/{username}/following', [App\Http\Controllers\EditProfileController::class, 'following'])->name('following');

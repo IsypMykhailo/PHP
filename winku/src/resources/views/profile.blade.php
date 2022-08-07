@@ -77,8 +77,8 @@
                                 <li>
                                     <!--<a class="" href="time-line.html" title="" data-ripple="">time line</a>-->
                                     <a class="" href="timeline-photos.html" title="" data-ripple="">Posts</a>
-                                    <a class="" href="timeline-videos.html" title="" data-ripple="">Followers</a>
-                                    <a class="" href="timeline-friends.html" title="" data-ripple="">Following</a>
+                                    <a class="" href="{{url('/'.$username.'/followers')}}" title="" data-ripple="">Followers</a>
+                                    <a class="" href="{{url('/'.$username.'/following')}}" title="" data-ripple="">Following</a>
                                     <!--<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>-->
                                     <a class="active" href="{{url('/'.$username)}}" title="" data-ripple="">about</a>
 
