@@ -77,7 +77,7 @@
                                 </li>
                                 <li>
                                     <!--<a class="" href="time-line.html" title="" data-ripple="">time line</a>-->
-                                    <a class="" href="timeline-photos.html" title="" data-ripple="">Posts</a>
+                                    <a class="" href="{{url('/'.$username.'/posts')}}" title="" data-ripple="">Posts</a>
                                     <a class="" href="{{url('/'.$username.'/followers')}}" title="" data-ripple="">Followers</a>
                                     <a class="active" href="{{url('/'.$username.'/following')}}" title="" data-ripple="">Following</a>
                                     <!--<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>-->
@@ -145,7 +145,7 @@
                                                 <p class="m-2">
                                                     <img class="follower_img" src="{{asset('/storage/'.$follower->user->avatar)}}" align="middle">
                                                     <span class="username">{{$follower->user->username}}</span><br>
-                                                    <span>{{$follower->follower->name}}</span>
+                                                    <span>{{$follower->user->name}}</span>
                                                 </p>
                                             @endforeach
                                         </div>

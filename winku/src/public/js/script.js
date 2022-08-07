@@ -312,7 +312,7 @@ $(function() {
 		});
 	}
 
-/** Post a Comment **/
+/** Publication a Comment **/
 jQuery(".post-comt-box textarea").on("keydown", function(event) {
 
 	if (event.keyCode == 13) {

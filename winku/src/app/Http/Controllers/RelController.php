@@ -38,9 +38,9 @@ class RelController
         $firstUser = User::all()->first();
         //dd($firstUser);
 
-        //$allPost = Post::all()->first();
-        //$a = Post::query()->first();
-        //$a = Post::query()->take(1)->get();
+        //$allPost = Publication::all()->first();
+        //$a = Publication::query()->first();
+        //$a = Publication::query()->take(1)->get();
         //dd($a);
 
         /*$mikeis = User::query()

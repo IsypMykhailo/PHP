@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Redirect;
+use App\Models\Publication;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -63,6 +64,22 @@ class EditProfileController extends Controller
         return view('profile');
     }
 
+    public function addPost(Request $request, $username){
+        $username = Auth::user()->username;
+        $filename = $request->file('image')->store('public/posts/' . date('FY'));
+        $filename = Storage::url($filename);
+        $filename = str_replace('/storage', '', $filename);
+        (new ImageResize)->cutBackground($filename, 870, 470);
+        Publication::create([
+            'description'=>$request->get('description'),
+            'image'=>$filename,
+            'user_id'=>Auth::user()->id
+        ]);
+        (new Redirect)->redirect('/'.$username.'/posts');
+        //$this->redirect('/' . $username);
+        return view('posts');
+    }
+
     public function updateProfileBasic(Request $request, $username)
     {
         $user = Auth::user();
@@ -120,8 +137,17 @@ class EditProfileController extends Controller
         }
         else {
             $username = Auth::user()->username;
-            //$username = User::query()->where('username', '===', '');
             return view('following');
+        }
+    }
+
+    public function posts($username){
+        if(User::query()->where('username', $username)->first() === null){
+            return view('no_user');
+        }
+        else {
+            $username = Auth::user()->username;
+            return view('posts');
         }
     }
 

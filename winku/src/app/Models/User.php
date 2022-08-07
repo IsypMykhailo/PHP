@@ -22,6 +22,21 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Follower::class);
     }
 
+    public function publications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Publication::class);
+    }
+
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function like(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Like::class);
+    }
+
     /*public function followings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Following::class);

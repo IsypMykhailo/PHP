@@ -326,10 +326,10 @@ class PostsTableSeeder extends Seeder
         $post = $this->findPost('lorem-ipsum-post');
         if (!$post->exists) {
             $post->fill([
-                'title'            => 'Lorem Ipsum Post',
+                'title'            => 'Lorem Ipsum Publication',
                 'author_id'        => 0,
                 'seo_title'        => null,
-                'excerpt'          => 'This is the excerpt for the Lorem Ipsum Post',
+                'excerpt'          => 'This is the excerpt for the Lorem Ipsum Publication',
                 'body'             => '<p>This is the body of the lorem ipsum post</p>',
                 'image'            => 'posts/post1.jpg',
                 'slug'             => 'lorem-ipsum-post',
@@ -343,10 +343,10 @@ class PostsTableSeeder extends Seeder
         $post = $this->findPost('my-sample-post');
         if (!$post->exists) {
             $post->fill([
-                'title'     => 'My Sample Post',
+                'title'     => 'My Sample Publication',
                 'author_id' => 0,
                 'seo_title' => null,
-                'excerpt'   => 'This is the excerpt for the sample Post',
+                'excerpt'   => 'This is the excerpt for the sample Publication',
                 'body'      => '<p>This is the body for the sample post, which includes the body.</p>
                 <h2>We can use all kinds of format!</h2>
                 <p>And include a bunch of other stuff.</p>',
@@ -362,7 +362,7 @@ class PostsTableSeeder extends Seeder
         $post = $this->findPost('latest-post');
         if (!$post->exists) {
             $post->fill([
-                'title'            => 'Latest Post',
+                'title'            => 'Latest Publication',
                 'author_id'        => 0,
                 'seo_title'        => null,
                 'excerpt'          => 'This is the excerpt for the latest post',
@@ -379,7 +379,7 @@ class PostsTableSeeder extends Seeder
         $post = $this->findPost('yarr-post');
         if (!$post->exists) {
             $post->fill([
-                'title'     => 'Yarr Post',
+                'title'     => 'Yarr Publication',
                 'author_id' => 0,
                 'seo_title' => null,
                 'excerpt'   => 'Reef sails nipperkin bring a spring upon her cable coffer jury mast spike marooned Pieces of Eight poop deck pillage. Clipper driver coxswain galleon hempen halter come about pressgang gangplank boatswain swing the lead. Nipperkin yard skysail swab lanyard Blimey bilge water ho quarter Buccaneer.',

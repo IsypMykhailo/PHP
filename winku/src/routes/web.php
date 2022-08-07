@@ -37,3 +37,6 @@ Route::post('/{username}/follow', [App\Http\Controllers\RelController::class, 'f
 Route::post('/{username}/unfollow', [App\Http\Controllers\RelController::class, 'unfollow'])->name('unfollow');
 Route::get('/{username}/followers', [App\Http\Controllers\EditProfileController::class, 'followers'])->name('followers');
 Route::get('/{username}/following', [App\Http\Controllers\EditProfileController::class, 'following'])->name('following');
+Route::get('/{username}/posts', [App\Http\Controllers\EditProfileController::class, 'posts'])->name('posts');
+Route::post('/{username}/posts/addPost', [App\Http\Controllers\EditProfileController::class, 'addPost'])->name('addPost');
+Route::post('/like', [App\Http\Controllers\PublicationController::class, 'like'])->name('like');
