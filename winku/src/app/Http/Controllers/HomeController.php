@@ -28,6 +28,15 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function search(){
+        return view('search');
+    }
+
+    public function search_form(Request $request){
+        $users = User::query()->where('username', 'like', '%' . $request->username . '%')->get();
+        return response()->json(['success'=>$users]);
+    }
+
     public function profile($username){
         if(User::query()->where('username', $username)->first() === null){
             return view('no_user');

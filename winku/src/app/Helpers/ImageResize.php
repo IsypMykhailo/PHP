@@ -110,8 +110,8 @@ class ImageResize
         $w = $targetWidth;
         $h = $targetHeight;
 
-        $x = '1%';
-        $y = '1%';
+        $x = '0%';
+        $y = '0%';
 
         if (strpos($x, '%') !== false) {
             $x = intval($x);

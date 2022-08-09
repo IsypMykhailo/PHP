@@ -32,9 +32,9 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Comment::class);
     }
 
-    public function like(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function like(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(Like::class);
+        return $this->hasMany(Like::class);
     }
 
     /*public function followings(): \Illuminate\Database\Eloquent\Relations\HasMany

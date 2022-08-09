@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+    use App\Models\User;
+    @endphp
     <section>
         <div class="gap gray-bg">
             <div class="container-fluid">
@@ -12,7 +15,7 @@
                                     <div class="widget">
                                         <h4 class="widget-title">Shortcuts</h4>
                                         <ul class="naves">
-                                            <li>
+                                            <!--<li>
                                                 <i class="ti-clipboard"></i>
                                                 <a href="newsfeed.html" title="">News feed</a>
                                             </li>
@@ -51,6 +54,10 @@
                                             <li>
                                                 <i class="fa fa-bar-chart-o"></i>
                                                 <a href="insights.html" title="">insights</a>
+                                            </li>-->
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a href="#" title="">web chat</a>
                                             </li>
                                             <li>
                                                 <i class="ti-power-off"></i>
@@ -83,850 +90,297 @@
                                             </li>
                                         </ul>
                                     </div><!-- recent activites -->
-                                    <div class="widget stick-widget">
+                                    <div class="widget">
                                         <h4 class="widget-title">Who's follownig</h4>
                                         <ul class="followers">
+                                            @foreach(\App\Models\Follower::query()->where('user_id', Auth::user()->id)->get() as $follower)
+                                                @if(\App\Models\Follower::query()->where('user_id', $follower->follower->id)->where('follower_id', Auth::user()->id)->first() === null)
                                             <li>
-                                                <figure><img src="images/resources/friend-avatar2.jpg" alt=""></figure>
+                                                <figure><img src="{{asset('/storage/'.$follower->follower->avatar)}}" alt=""></figure>
                                                 <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Kelly Bill</a></h4>
-                                                    <a href="#" title="" class="underline">Add Friend</a>
+                                                    <h4><a href="{{url('/'.$follower->follower->username)}}" title="">{{$follower->follower->name}}</a></h4>
+                                                    <a href="{{url('/follow')}}" title="" class="underline">Add Friend</a>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <figure><img src="images/resources/friend-avatar4.jpg" alt=""></figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Issabel</a></h4>
-                                                    <a href="#" title="" class="underline">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img src="images/resources/friend-avatar6.jpg" alt=""></figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Andrew</a></h4>
-                                                    <a href="#" title="" class="underline">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img src="images/resources/friend-avatar8.jpg" alt=""></figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Sophia</a></h4>
-                                                    <a href="#" title="" class="underline">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img src="images/resources/friend-avatar3.jpg" alt=""></figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Allen</a></h4>
-                                                    <a href="#" title="" class="underline">Add Friend</a>
-                                                </div>
-                                            </li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </div><!-- who's following -->
                                 </aside>
                             </div><!-- sidebar -->
                             <div class="col-lg-6">
-                                <div class="central-meta">
-                                    <div class="new-postbox">
-                                        <figure>
-                                            <img src="images/resources/admin2.jpg" alt="">
-                                        </figure>
-                                        <div class="newpst-input">
-                                            <form method="post">
-                                                <textarea rows="2" placeholder="write something"></textarea>
-                                                <div class="attachments">
-                                                    <ul>
-                                                        <li>
-                                                            <i class="fa fa-music"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-image"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-video-camera"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-camera"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <button type="submit">Post</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div><!-- add post new box -->
                                 <div class="loadMore">
-                                    <div class="central-meta item">
+                                    @foreach(\App\Models\Follower::query()->where('follower_id', Auth::user()->id)->get() as $following)
+                                        @foreach(\App\Models\Publication::query()->where('user_id', $following->user_id)->get() as $publication)
+                                    <div class="central-meta item" id="{{$publication->id}}">
                                         <div class="user-post">
                                             <div class="friend-info">
                                                 <figure>
-                                                    <img src="images/resources/friend-avatar10.jpg" alt="">
+                                                    <img src="{{asset('/storage/'.User::query()->where('id', $publication->user_id)->first()->avatar)}}" alt="">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
+                                                    <ins><a href="{{url('/'.User::query()->where('id', $publication->user_id)->first()->username)}}" title="">{{User::query()->where('id', $publication->user_id)->first()->name}}</a></ins>
+                                                    <span>{{$publication->created_at}}</span>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src="images/resources/user-post.jpg" alt="">
+                                                    <img src="{{asset('/storage/'.$publication->image)}}" alt="">
                                                     <div class="we-video-info">
                                                         <ul>
-                                                            <li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                            <li id="liLike" class="mr-0">
+                                                                @if($publication->likes->where('user_id',Auth::user()->id)->first() === null)
+                                                                    <form id="formLike{{$publication->id}}">
+                                                                        <div>
+                                                                <span class="like" data-toggle="tooltip" title="like">
+                                                                    <button id="btnLike{{$publication->id}}" type="submit" style="border:none;outline:none;background:none;color:black"><i class="ti-heart"></i> {{count($publication->likes->all())}}</button>
+                                                                    <!--<ins>{{count($publication->likes->all())}}</ins>-->
+                                                                </span>
                                                                         </div>
+                                                                        <input id="publication_id{{$publication->id}}" name="publication_id" type="hidden"
+                                                                               value="{{$publication->id}}"/>
+                                                                        <input id="user_id" name="user_id" type="hidden"
+                                                                               value="{{Auth::user()->id}}"/>
+                                                                    </form>
+                                                                <form id="formUnlike{{$publication->id}}" style="display:none;">
+                                                                    @csrf
+                                                                    <div>
+                                                                    <span class="like" data-toggle="tooltip" title="like">
+                                                                    <button id="btnUnlike{{$publication->id}}" type="submit" style="border:none;outline:none;background:none;color:red">&#10084; {{count($publication->likes->all())}}</button>
+                                                                    <!--<ins>{{count($publication->likes->all())}}</ins>-->
+                                                                    </span>
                                                                     </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
+                                                                    <input id="publication_id2{{$publication->id}}" name="publication_id" type="hidden"
+                                                                           value="{{$publication->id}}"/>
+                                                                    <input id="user_id2" name="user_id" type="hidden"
+                                                                           value="{{Auth::user()->id}}"/>
+                                                                </form>
 
-                                                                </div>
+                                                                @else
+                                                                    <form id="formLike{{$publication->id}}" style="display:none;">
+                                                                        <div>
+                                                                <span class="like" data-toggle="tooltip" title="like">
+                                                                    <button id="btnLike{{$publication->id}}" type="submit" style="border:none;outline:none;background:none;color:black"><i class="ti-heart"></i> {{count($publication->likes->all())}}</button>
+                                                                    <!--<ins>{{count($publication->likes->all())}}</ins>-->
+                                                                </span>
+                                                                        </div>
+                                                                        <input id="publication_id{{$publication->id}}" name="publication_id" type="hidden"
+                                                                               value="{{$publication->id}}"/>
+                                                                        <input id="user_id" name="user_id" type="hidden"
+                                                                               value="{{Auth::user()->id}}"/>
+                                                                    </form>
+                                                                    <form id="formUnlike{{$publication->id}}" style="display:block;">
+                                                                        @csrf
+                                                                        <div>
+                                                                    <span class="like" data-toggle="tooltip" title="like">
+                                                                    <button id="btnUnlike{{$publication->id}}" type="submit" style="border:none;outline:none;background:none;color:red">&#10084; {{count($publication->likes->all())}}</button>
+                                                                    <!--<ins>{{count($publication->likes->all())}}</ins>-->
+                                                                    </span>
+                                                                        </div>
+                                                                        <input id="publication_id2{{$publication->id}}" name="publication_id" type="hidden"
+                                                                               value="{{$publication->id}}"/>
+                                                                        <input id="user_id2" name="user_id" type="hidden"
+                                                                               value="{{Auth::user()->id}}"/>
+                                                                    </form>
+                                                                @endif
+                                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+                                                                    <script>
+                                                                        $('#formLike{{$publication->id}}').on('submit', function (event) {
+                                                                            event.preventDefault();
+                                                                            let userId = $('#user_id').val();
+                                                                            let publId = $('#publication_id{{$publication->id}}').val();
+                                                                            $.ajax({
+                                                                                url: "/like",
+                                                                                type: "POST",
+                                                                                data: {
+                                                                                    "_token": "{{ csrf_token() }}",
+                                                                                    user_id: userId,
+                                                                                    publication_id: publId,
+                                                                                },
+                                                                                success: function (response) {
+                                                                                    if (response.success) {
+                                                                                        $('#formLike{{$publication->id}}').hide();
+                                                                                        document.getElementById('btnLike{{$publication->id}}').innerText = response.success;
+                                                                                        document.getElementById('formUnlike{{$publication->id}}').style.display = "block";
+                                                                                        document.getElementById('btnUnlike{{$publication->id}}').innerHTML = "&#10084; "+response.success;
+                                                                                    }
+                                                                                },
+                                                                            });
+                                                                        });
+                                                                        $('#formUnlike{{$publication->id}}').on('submit', function (event) {
+                                                                            event.preventDefault();
+                                                                            let userId = $('#user_id2').val();
+                                                                            let publId = $('#publication_id2{{$publication->id}}').val();
+                                                                            $.ajax({
+                                                                                url: "/unlike",
+                                                                                type: "POST",
+                                                                                data: {
+                                                                                    "_token": "{{ csrf_token() }}",
+                                                                                    user_id: userId,
+                                                                                    publication_id: publId,
+                                                                                },
+                                                                                success: function (response) {
+                                                                                    $('#formUnlike{{$publication->id}}').hide();
+                                                                                    document.getElementById('btnUnlike{{$publication->id}}').innerText = "&#10084; "+response.success;
+                                                                                    document.getElementById('formLike{{$publication->id}}').style.display = "block";
+                                                                                    document.getElementById('btnLike{{$publication->id}}').innerHTML = "<i class='ti-heart'></i> "+response.success;
+                                                                                },
+                                                                            });
+                                                                        });
+                                                                    </script>
+                                                            </li>
+                                                            <li>
+															<span class="like" style="color:black;font-size:14px;font-weight:bold;" data-toggle="tooltip"
+                                                                  title="Comments">
+																<i class="fa fa-comments-o"></i>
+																{{count($publication->comments->all())}}
+															</span>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     <div class="description">
 
                                                         <p>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
+                                                            {{$publication->description}}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="coment-area">
-                                                <ul class="we-comet">
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-1.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a></h5>
-                                                                <span>1 year ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
-                                                        </div>
-                                                        <ul>
+                                                <ul class="we-comet" id="comments{{$publication->id}}">
+                                                    @if($publication->comments->first() !== null)
+                                                        @php
+                                                        $count_comments = count($publication->comments->all());
+                                                        @endphp
+                                                    @if($count_comments >= 5)
+                                                        @foreach($publication->comments->find(5) as $comment)
                                                             <li>
                                                                 <div class="comet-avatar">
-                                                                    <img src="images/resources/comet-2.jpg" alt="">
+                                                                    <img
+                                                                        src="{{asset('/storage/'.$comment->user->avatar)}}"
+                                                                        alt="">
                                                                 </div>
                                                                 <div class="we-comment">
                                                                     <div class="coment-head">
-                                                                        <h5><a href="time-line.html" title="">alexendra dadrio</a></h5>
-                                                                        <span>1 month ago</span>
-                                                                        <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+                                                                        <h5><a href="{{url('/'.$comment->user->username)}}" title="">{{$comment->user->name}}</a></h5>
+                                                                        <span>{{$comment->created_at}}</span>
+                                                                        <a class="we-reply" href="#"
+                                                                           title="Reply"><i
+                                                                                class="fa fa-reply"></i></a>
                                                                     </div>
-                                                                    <p>yes, really very awesome car i see the features of this car in the official website of <a href="#" title="">#Mercedes-Benz</a> and really impressed :-)</p>
+                                                                    <p>{{$comment->text}}</p>
                                                                 </div>
                                                             </li>
-                                                            <li>
-                                                                <div class="comet-avatar">
-                                                                    <img src="images/resources/comet-3.jpg" alt="">
-                                                                </div>
-                                                                <div class="we-comment">
-                                                                    <div class="coment-head">
-                                                                        <h5><a href="time-line.html" title="">Olivia</a></h5>
-                                                                        <span>16 days ago</span>
-                                                                        <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+                                                        @endforeach
+                                                        <li>
+                                                            <button onclick="" title="" class="showmore underline">more
+                                                                comments</button>
+                                                        </li>
+                                                        @else
+                                                            @foreach($publication->comments->all() as $comment)
+                                                                <li>
+                                                                    <div class="comet-avatar">
+                                                                        <img
+                                                                            src="{{asset('/storage/'.$comment->user->avatar)}}"
+                                                                            alt="">
                                                                     </div>
-                                                                    <p>i like lexus cars, lexus cars are most beautiful with the awesome features, but this car is really outstanding than lexus</p>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-1.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Donald Trump</a></h5>
-                                                                <span>1 week ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel
-                                                                <i class="em em-smiley"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="" class="showmore underline">more comments</a>
-                                                    </li>
+                                                                    <div class="we-comment">
+                                                                        <div class="coment-head">
+                                                                            <h5><a href="{{url('/'.$comment->user->username)}}" title="">{{$comment->user->name}}</a></h5>
+                                                                            <span>{{$comment->created_at}}</span>
+                                                                            <a class="we-reply" href="#"
+                                                                               title="Reply"><i
+                                                                                    class="fa fa-reply"></i></a>
+                                                                        </div>
+                                                                        <p>{{$comment->text}}</p>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                            <!--<li>
+                                                                <button onclick="" title="" class="showmore underline">more
+                                                                    comments</button>
+                                                            </li>-->
+                                                        @endif
+                                                    @endif
                                                     <li class="post-comment">
                                                         <div class="comet-avatar">
-                                                            <img src="images/resources/comet-1.jpg" alt="">
+                                                            <img src="{{Auth::user()->avatar}}" alt="">
                                                         </div>
-                                                        <div class="post-comt-box">
-                                                            <form method="post">
-                                                                <textarea placeholder="Post your comment"></textarea>
-                                                                <div class="add-smiles">
-                                                                    <span class="em em-expressionless" title="add icon"></span>
-                                                                </div>
-                                                                <div class="smiles-bunch">
-                                                                    <i class="em em---1"></i>
-                                                                    <i class="em em-smiley"></i>
-                                                                    <i class="em em-anguished"></i>
-                                                                    <i class="em em-laughing"></i>
-                                                                    <i class="em em-angry"></i>
-                                                                    <i class="em em-astonished"></i>
-                                                                    <i class="em em-blush"></i>
-                                                                    <i class="em em-disappointed"></i>
-                                                                    <i class="em em-worried"></i>
-                                                                    <i class="em em-kissing_heart"></i>
-                                                                    <i class="em em-rage"></i>
-                                                                    <i class="em em-stuck_out_tongue"></i>
-                                                                </div>
-                                                                <button type="submit"></button>
+                                                        <div class=""> <!--post-comt-box-->
+                                                            <form id="formComment{{$publication->id}}">
+                                                                @csrf
+                                                                <textarea id="text{{$publication->id}}" name="text"
+                                                                          placeholder="Post your comment"></textarea>
+                                                                <input id="publication_id{{$publication->id}}" name="publication_id" type="hidden"
+                                                                       value="{{$publication->id}}"/>
+                                                                <input id="user_id" name="user_id" type="hidden"
+                                                                       value="{{Auth::user()->id}}"/>
+                                                                <button type="submit">Send</button>
                                                             </form>
+                                                            <script>
+                                                                $('#formComment{{$publication->id}}').on('submit',function(event){
+                                                                    event.preventDefault();
+                                                                    let userId = $('#user_id').val();
+                                                                    let publId = $('#publication_id{{$publication->id}}').val();
+                                                                    let text = $('#text{{$publication->id}}').val();
+                                                                    let comments = document.getElementById('comments{{$publication->id}}');
+                                                                    $.ajax({
+                                                                        url: "/comment",
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            "_token": "{{ csrf_token() }}",
+                                                                            user_id: userId,
+                                                                            publication_id: publId,
+                                                                            text:text,
+                                                                        },
+                                                                        success: function (response) {
+                                                                            if (response.success) {
+                                                                                comments.innerHTML += '<li>'+
+                                                                                    '<div class="comet-avatar">'+
+                                                                                        '<img src="{{asset('/storage/'.Auth::user()->avatar)}}" alt="">'+
+                                                                                    '</div>'+
+                                                                                    '<div class="we-comment">'+
+                                                                                        '<div class="coment-head">'+
+                                                                                            '<h5><a href="{{url('/'.Auth::user()->username)}}" title="">{{Auth::user()->name}}</a></h5>'+
+                                                                                            '<span>'+ response.success.created_at +'</span>'+
+                                                                                            '<a class="we-reply" href="#"'+
+                                                                                               'title="Reply"><i'+
+                                                                                                'class="fa fa-reply"></i></a>'+
+                                                                                        '</div>'+
+                                                                                        '<p>'+ response.success.text +'</p>'+
+                                                                                    '</div>'+
+                                                                                '</li>';
+                                                                            }
+                                                                        },
+                                                                    });
+                                                                })
+                                                            </script>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img src="images/resources/nearly1.jpg" alt="">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Sara Grey</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <iframe src="https://player.vimeo.com/video/15232052" height="315" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
+                                        @endforeach
+                                    @endforeach
 
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="description">
-
-                                                        <p>
-                                                            Lonely Cat Enjoying in Summer Curabitur <a href="#" title="">#mypage</a> ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="coment-area">
-                                                <ul class="we-comet">
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-1.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a></h5>
-                                                                <span>1 year ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel</p>
-                                                        </div>
-
-                                                    </li>
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-2.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Sophia</a></h5>
-                                                                <span>1 week ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster.
-                                                                <i class="em em-smiley"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="" class="showmore underline">more comments</a>
-                                                    </li>
-                                                    <li class="post-comment">
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-2.jpg" alt="">
-                                                        </div>
-                                                        <div class="post-comt-box">
-                                                            <form method="post">
-                                                                <textarea placeholder="Post your comment"></textarea>
-                                                                <div class="add-smiles">
-                                                                    <span class="em em-expressionless" title="add icon"></span>
-                                                                </div>
-                                                                <div class="smiles-bunch">
-                                                                    <i class="em em---1"></i>
-                                                                    <i class="em em-smiley"></i>
-                                                                    <i class="em em-anguished"></i>
-                                                                    <i class="em em-laughing"></i>
-                                                                    <i class="em em-angry"></i>
-                                                                    <i class="em em-astonished"></i>
-                                                                    <i class="em em-blush"></i>
-                                                                    <i class="em em-disappointed"></i>
-                                                                    <i class="em em-worried"></i>
-                                                                    <i class="em em-kissing_heart"></i>
-                                                                    <i class="em em-rage"></i>
-                                                                    <i class="em em-stuck_out_tongue"></i>
-                                                                </div>
-                                                                <button type="submit"></button>
-                                                            </form>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img src="images/resources/nearly6.jpg" alt="">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Sophia</a></ins>
-                                                    <span>published: january,5 2018 19:PM</span>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <div class="post-map">
-                                                        <div class="nearby-map">
-                                                            <div id="map-canvas"></div>
-                                                        </div>
-                                                    </div><!-- near by map -->
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="description">
-
-                                                        <p>
-                                                            Curabitur Lonely Cat Enjoying in Summer <a href="#" title="">#mypage</a> ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="coment-area">
-                                                <ul class="we-comet">
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-1.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a></h5>
-                                                                <span>1 year ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel</p>
-                                                        </div>
-
-                                                    </li>
-                                                    <li>
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-2.jpg" alt="">
-                                                        </div>
-                                                        <div class="we-comment">
-                                                            <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Sophia</a></h5>
-                                                                <span>1 week ago</span>
-                                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                            </div>
-                                                            <p>we are working for the dance and sing songs. this video is very awesome for the youngster.
-                                                                <i class="em em-smiley"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="" class="showmore underline">more comments</a>
-                                                    </li>
-                                                    <li class="post-comment">
-                                                        <div class="comet-avatar">
-                                                            <img src="images/resources/comet-2.jpg" alt="">
-                                                        </div>
-                                                        <div class="post-comt-box">
-                                                            <form method="post">
-                                                                <textarea placeholder="Post your comment"></textarea>
-                                                                <div class="add-smiles">
-                                                                    <span class="em em-expressionless" title="add icon"></span>
-                                                                </div>
-                                                                <div class="smiles-bunch">
-                                                                    <i class="em em---1"></i>
-                                                                    <i class="em em-smiley"></i>
-                                                                    <i class="em em-anguished"></i>
-                                                                    <i class="em em-laughing"></i>
-                                                                    <i class="em em-angry"></i>
-                                                                    <i class="em em-astonished"></i>
-                                                                    <i class="em em-blush"></i>
-                                                                    <i class="em em-disappointed"></i>
-                                                                    <i class="em em-worried"></i>
-                                                                    <i class="em em-kissing_heart"></i>
-                                                                    <i class="em em-rage"></i>
-                                                                    <i class="em em-stuck_out_tongue"></i>
-                                                                </div>
-                                                                <button type="submit"></button>
-                                                            </form>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img alt="" src="images/resources/friend-avatar10.jpg">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins><a title="" href="time-line.html">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
-                                                </div>
-                                                <div class="description">
-
-                                                    <p>
-                                                        Curabitur World's most beautiful car in <a title="" href="#">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-                                                    </p>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <div class="linked-image align-left">
-                                                        <a title="" href="#"><img alt="" src="images/resources/page1.jpg"></a>
-                                                    </div>
-                                                    <div class="detail">
-                                                        <span>Love Maid - ChillGroves</span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur ipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua... </p>
-                                                        <a title="" href="#">www.sample.com</a>
-                                                    </div>
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-                                                            </li>
-                                                            <li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div><!-- centerl meta -->
                             <div class="col-lg-3">
                                 <aside class="sidebar static">
-                                    <div class="widget">
-                                        <h4 class="widget-title">Your page</h4>
-                                        <div class="your-page">
-                                            <figure>
-                                                <a href="#" title=""><img src="images/resources/friend-avatar9.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="page-meta">
-                                                <a href="#" title="" class="underline">My page</a>
-                                                <span><i class="ti-comment"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
-                                                <span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
-                                            </div>
-                                            <div class="page-likes">
-                                                <ul class="nav nav-tabs likes-btn">
-                                                    <li class="nav-item"><a class="active" href="#link1" data-toggle="tab">likes</a></li>
-                                                    <li class="nav-item"><a class="" href="#link2" data-toggle="tab">views</a></li>
-                                                </ul>
-                                                <!-- Tab panes -->
-                                                <div class="tab-content">
-                                                    <div class="tab-pane active fade show " id="link1" >
-                                                        <span><i class="ti-heart"></i>884</span>
-                                                        <a href="#" title="weekly-likes">35 new likes this week</a>
-                                                        <div class="users-thumb-list">
-                                                            <a href="#" title="Anderw" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-1.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="frank" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-2.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Sara" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-3.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Amy" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-4.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Ema" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-5.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Sophie" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-6.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Maria" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-7.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="link2" >
-                                                        <span><i class="ti-eye"></i>440</span>
-                                                        <a href="#" title="weekly-likes">440 new views this week</a>
-                                                        <div class="users-thumb-list">
-                                                            <a href="#" title="Anderw" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-1.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="frank" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-2.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Sara" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-3.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Amy" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-4.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Ema" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-5.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Sophie" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-6.jpg" alt="">
-                                                            </a>
-                                                            <a href="#" title="Maria" data-toggle="tooltip">
-                                                                <img src="images/resources/userlist-7.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- page like widget -->
-                                    <div class="widget">
-                                        <div class="banner medium-opacity bluesh">
-                                            <div class="bg-image" style="background-image: url(images/resources/baner-widgetbg.jpg)"></div>
-                                            <div class="baner-top">
-                                                <span><img alt="" src="images/book-icon.png"></span>
-                                                <i class="fa fa-ellipsis-h"></i>
-                                            </div>
-                                            <div class="banermeta">
-                                                <p>
-                                                    create your own favourit page.
-                                                </p>
-                                                <span>like them all</span>
-                                                <a data-ripple="" title="" href="#">start now!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget friend-list stick-widget">
-                                        <h4 class="widget-title">Friends</h4>
-                                        <div id="searchDir"></div>
+
+
+                                    <div class="widget friend-list">
+                                        <h4 class="widget-title" style="margin-bottom:0;">Friends</h4>
                                         <ul id="people-list" class="friendz-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar.jpg" alt="">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">bucky barnes</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar2.jpg" alt="">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Sarah Loren</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d6d5c6dad1c7f4d3d9d5ddd89ad7dbd9">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar3.jpg" alt="">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">jason borne</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d777c6e72737f5d7a707c7471337e7270">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar4.jpg" alt="">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Cameron diaz</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bed4dfcdd1d0dcfed9d3dfd7d290ddd1d3">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar5.jpg" alt="">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">daniel warber</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553f34263a3b37153238343c397b363a38">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar6.jpg" alt="">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">andrew</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5933382a36373b193e34383035773a3634">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar7.jpg" alt="">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">amy watson</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5933382a36373b193e34383035773a3634">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar5.jpg" alt="">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">daniel warber</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb1baa8b4b5b99bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img src="images/resources/friend-avatar2.jpg" alt="">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Sarah Loren</a>
-                                                    <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2644475448435566414b474f4a0845494b">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
+                                            @foreach(\App\Models\Follower::query()->where('user_id', Auth::user()->id)->get() as $follower)
+                                                @if(\App\Models\Follower::query()->where('user_id', $follower->follower->id)->where('follower_id', Auth::user()->id)->first() !== null)
+                                                    <li>
+                                                        <figure><img src="{{asset('/storage/'.$follower->follower->avatar)}}" alt=""></figure>
+                                                        <div class="friend-meta">
+                                                            <h4><a href="{{url('/'.$follower->follower->username)}}" title="">{{$follower->follower->name}}</a></h4>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                         <div class="chat-box">
                                             <div class="chat-head">
@@ -999,4 +453,5 @@
             </div>
         </div>
     </section>
+
 @endsection

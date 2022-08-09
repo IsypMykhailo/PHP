@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/email_confirm/{username}', [App\Http\Controllers\HomeController::class, 'emailConfirmation'])->name('emailConfirmation');
 Route::get('/{username}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/{username}/updateAvatar', [App\Http\Controllers\EditProfileController::class, 'editAvatar'])->name('editAvatar');
@@ -40,3 +41,7 @@ Route::get('/{username}/following', [App\Http\Controllers\EditProfileController:
 Route::get('/{username}/posts', [App\Http\Controllers\EditProfileController::class, 'posts'])->name('posts');
 Route::post('/{username}/posts/addPost', [App\Http\Controllers\EditProfileController::class, 'addPost'])->name('addPost');
 Route::post('/like', [App\Http\Controllers\PublicationController::class, 'like'])->name('like');
+Route::post('/unlike', [App\Http\Controllers\PublicationController::class, 'unlike'])->name('unlike');
+Route::post('/comment', [App\Http\Controllers\PublicationController::class, 'comment'])->name('comment');
+
+Route::post('/search-form', [App\Http\Controllers\HomeController::class, 'search_form'])->name('search_form');
