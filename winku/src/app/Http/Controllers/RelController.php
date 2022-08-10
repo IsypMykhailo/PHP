@@ -5,8 +5,10 @@ use App\Helpers\Redirect;
 use App\Models\Follower;
 use App\Models\Profile;
 use App\Models\User;
+use App\Notifications\Followed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class RelController
 {
@@ -19,15 +21,37 @@ class RelController
             'follower_id' => $follower,
             'user_id' => $following
         ]);
-        (new Redirect)->redirect('/'.$username);
-        return view('profile');
+        $user = User::query()->where('id',$follower)->first();
+        $me = User::query()->where('id',$following)->first();
+        $me->notify(new Followed($user));
+        //Notification::send($me, new Followed($user));
+        //return response()->json(['success'=>'success']);
+        //(new Redirect)->redirect('/'.$username);
+        //return view('profile');
+        return redirect(url()->previous());
+    }
+
+    public function follow_ajax(Request $request, $username){
+        $username = str_replace('/follow-ajax','',$_SERVER['REQUEST_URI']);
+        $username = str_replace('/','',$username);
+        $following = User::query()->where('username', $username)->first()->id;
+        $follower = Auth::user()->id;
+        Follower::create([
+            'follower_id' => $follower,
+            'user_id' => $following
+        ]);
+
+        //
+        return response()->json(['success'=>'success']);
+        //(new Redirect)->redirect('/'.$username);
+        //return view('profile');
     }
 
     public function unfollow(Request $request, $username){
         $username = str_replace('/unfollow','',$_SERVER['REQUEST_URI']);
         $username = str_replace('/','',$username);
         $follower = Auth::user()->id;
-        Follower::query()->where('follower_id', $follower)->first()->delete();
+        Follower::query()->where('follower_id', $follower)->where('user_id', User::query()->where('username',$username)->first()->id)->first()->delete();
         (new Redirect)->redirect('/'.$username);
         return view('profile');
     }

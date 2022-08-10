@@ -401,135 +401,31 @@
                 </div>
 
                 <div class="top-area">
-                    <!--<ul class="main-menu">
-                        <li>
-                            <a href="#" title="">Home</a>
-                            <ul>
-                                <li><a href="index-2.html" title="">Home Social</a></li>
-                                <li><a href="index2.html" title="">Home Social 2</a></li>
-                                <li><a href="index-company.html" title="">Home Company</a></li>
-                                <li><a href="landing.html" title="">Login page</a></li>
-                                <li><a href="logout.html" title="">Logout Page</a></li>
-                                <li><a href="newsfeed.html" title="">news feed</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" title="">timeline</a>
-                            <ul>
-                                <li><a href="time-line.html" title="">timeline</a></li>
-                                <li><a href="timeline-friends.html" title="">timeline friends</a></li>
-                                <li><a href="timeline-groups.html" title="">timeline groups</a></li>
-                                <li><a href="timeline-pages.html" title="">timeline pages</a></li>
-                                <li><a href="timeline-photos.html" title="">timeline photos</a></li>
-                                <li><a href="timeline-videos.html" title="">timeline videos</a></li>
-                                <li><a href="fav-page.html" title="">favourit page</a></li>
-                                <li><a href="groups.html" title="">groups page</a></li>
-                                <li><a href="page-likers.html" title="">Likes page</a></li>
-                                <li><a href="people-nearby.html" title="">people nearby</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" title="">account settings</a>
-                            <ul>
-                                <li><a href="create-fav-page.html" title="">create fav page</a></li>
-                                <li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-                                <li><a href="edit-interest.html" title="">edit-interest</a></li>
-                                <li><a href="edit-password.html" title="">edit-password</a></li>
-                                <li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-                                <li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
-                                <li><a href="messages.html" title="">message box</a></li>
-                                <li><a href="inbox.html" title="">Inbox</a></li>
-                                <li><a href="notifications.html" title="">notifications page</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" title="">more pages</a>
-                            <ul>
-                                <li><a href="404.html" title="">404 error page</a></li>
-                                <li><a href="about.html" title="">about</a></li>
-                                <li><a href="contact.html" title="">contact</a></li>
-                                <li><a href="faq.html" title="">faq's page</a></li>
-                                <li><a href="insights.html" title="">insights</a></li>
-                                <li><a href="knowledge-base.html" title="">knowledge base</a></li>
-                                <li><a href="widgets.html" title="">Widgts</a></li>
-                            </ul>
-                        </li>
-                    </ul>-->
                     <ul class="setting-area">
                         <li>
                             <a href="{{url('/search')}}" title="Home" data-ripple=""><i class="ti-search"></i></a>
-                            <!--<div class="searched">
-                                <a href="{{url('/search')}}"><i class="ti-search"></i></a>
-                                <form method="post" class="form-search">
-                                    <input type="text" placeholder="Search Friend">
-                                    <button data-ripple><i class="ti-search"></i></button>
-                                </form>
-                            </div>-->
                         </li>
                         <li>
-                            <a href="#" title="Notification" data-ripple="">
-                                <i class="ti-bell"></i><span>20</span>
+                            <a href="{{url('/notifications')}}" title="Notification" data-ripple="">
+                                <i class="ti-bell"></i><span>{{count(Auth::user()->unreadNotifications)}}</span>
                             </a>
                             <div class="dropdowns">
-                                <span>4 New Notifications</span>
+                                <span>{{count(Auth::user()->unreadNotifications)}} New Notifications</span>
                                 <ul class="drops-menu">
-                                    <li>
-                                        <a href="notifications.html" title="">
-                                            <img src="{{asset('images/resources/thumb-1.jpg')}}" alt="">
-                                            <div class="mesg-meta">
-                                                <h6>sarah Loren</h6>
-                                                <span>Hi, how r u dear ...?</span>
-                                                <i>2 min ago</i>
-                                            </div>
-                                        </a>
-                                        <span class="tag green">New</span>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.html" title="">
-                                            <img src="{{asset('images/resources/thumb-2.jpg')}}" alt="">
-                                            <div class="mesg-meta">
-                                                <h6>Jhon doe</h6>
-                                                <span>Hi, how r u dear ...?</span>
-                                                <i>2 min ago</i>
-                                            </div>
-                                        </a>
-                                        <span class="tag red">Reply</span>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.html" title="">
-                                            <img src="{{asset('images/resources/thumb-3.jpg')}}" alt="">
-                                            <div class="mesg-meta">
-                                                <h6>Andrew</h6>
-                                                <span>Hi, how r u dear ...?</span>
-                                                <i>2 min ago</i>
-                                            </div>
-                                        </a>
-                                        <span class="tag blue">Unseen</span>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.html" title="">
-                                            <img src="{{asset('images/resources/thumb-4.jpg')}}" alt="">
-                                            <div class="mesg-meta">
-                                                <h6>Tom cruse</h6>
-                                                <span>Hi, how r u dear ...?</span>
-                                                <i>2 min ago</i>
-                                            </div>
-                                        </a>
-                                        <span class="tag">New</span>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.html" title="">
-                                            <img src="{{asset('images/resources/thumb-5.jpg')}}" alt="">
-                                            <div class="mesg-meta">
-                                                <h6>Amy</h6>
-                                                <span>Hi, how r u dear ...?</span>
-                                                <i>2 min ago</i>
-                                            </div>
-                                        </a>
-                                        <span class="tag">New</span>
-                                    </li>
+{{--                                    @foreach(Auth::user()->unreadNotifications as $notification)--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{url('/'.$notification->data['reactionPlacer']->username)}}" title="">--}}
+{{--                                            <img src="{{asset('images/resources/thumb-1.jpg')}}" alt="">--}}
+{{--                                            <div class="mesg-meta">--}}
+{{--                                                <h6>{{$notification->data['reactionPlacer']->name}}</h6>--}}
+{{--                                                <span>{{$notification->data['message']}}</span>--}}
+{{--                                                <i>{{$notification->created_at}}</i>--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                        <span class="tag green">Unseen</span>--}}
+{{--                                    </li>--}}
+{{--                                    @endforeach--}}
                                 </ul>
-                                <a href="notifications.html" title="" class="more-mesg">view more</a>
                             </div>
                         </li>
                         <li>
@@ -603,9 +499,7 @@
                         <span class="status f-online"></span>
                         <div class="user-setting">
                             <a href="{{url('/' . Auth::user()->username)}}" title=""><i class="ti-user"></i> view profile</a>
-                            <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                            <a href="#" title=""><i class="ti-target"></i>activity log</a>
-                            <a href="#" title=""><i class="ti-settings"></i>account setting</a>
+                            <a href="{{url('/'.Auth::user()->username.'/edit-profile-basic')}}" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                             <a href="{{ route('logout') }}" title="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-power-off"></i>log out</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -623,24 +517,25 @@
         <footer>
             <div class="container">
                 <div class="row">
+                    <div class="col-lg-2"></div>
                     <div class="col-lg-4 col-md-4">
                         <div class="widget">
                             <div class="foot-logo">
                                 <div class="logo">
-                                    <a href="index-2.html" title=""><img src="{{asset('images/logo.png')}}" alt=""></a>
+                                    <a href="{{url('/home')}}" title=""><img src="{{asset('images/logo.png')}}" alt=""></a>
                                 </div>
                                 <p>
-                                    The trio took this simple idea and built it into the world’s leading carpooling platform.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper eget nulla facilisi etiam dignissim diam quis.
                                 </p>
                             </div>
                             <ul class="location">
                                 <li>
                                     <i class="ti-map-alt"></i>
-                                    <p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
+                                    <p>8888 University Dr, Burnaby, BC V5A 1S6, Canada.</p>
                                 </li>
                                 <li>
                                     <i class="ti-mobile"></i>
-                                    <p>+1-56-346 345</p>
+                                    <p>+38 (067) 158-05-85</p>
                                 </li>
                             </ul>
                         </div>
@@ -649,11 +544,9 @@
                         <div class="widget">
                             <div class="widget-title"><h4>follow</h4></div>
                             <ul class="list-style">
-                                <li><i class="fa fa-facebook-square"></i> <a href="https://web.facebook.com/shopcircut/" title="">facebook</a></li>
-                                <li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/login?lang=en" title="">twitter</a></li>
-                                <li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/?hl=en" title="">instagram</a></li>
-                                <li><i class="fa fa-google-plus-square"></i> <a href="https://plus.google.com/discover" title="">Google+</a></li>
-                                <li><i class="fa fa-pinterest-square"></i> <a href="https://www.pinterest.com/" title="">Pintrest</a></li>
+                                <li><i class="fa fa-facebook-square"></i> <a href="https://www.facebook.com/profile.php?id=100010348093298" target="_blank" title="">facebook</a></li>
+                                <li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/mike_isyp" target="_blank" title="">twitter</a></li>
+                                <li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/mike_isyp" target="_blank" title="">instagram</a></li>
                             </ul>
                         </div>
                     </div>
@@ -661,15 +554,12 @@
                         <div class="widget">
                             <div class="widget-title"><h4>Navigate</h4></div>
                             <ul class="list-style">
-                                <li><a href="about.html" title="">about us</a></li>
-                                <li><a href="contact.html" title="">contact us</a></li>
-                                <li><a href="terms.html" title="">terms & Conditions</a></li>
-                                <li><a href="#" title="">RSS syndication</a></li>
-                                <li><a href="sitemap.html" title="">Sitemap</a></li>
+                                <li><a href="{{url('/contact')}}" title="">contact us</a></li>
+                                <li><a href="{{url('/terms')}}" title="">terms & Conditions</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4">
+                    <!--<div class="col-lg-2 col-md-4">
                         <div class="widget">
                             <div class="widget-title"><h4>useful links</h4></div>
                             <ul class="list-style">
@@ -690,7 +580,7 @@
                                 <li><a href="https://www.microsoft.com/store/apps" title=""><i class="fa fa-windows"></i>Windows</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </footer><!-- footer -->
@@ -769,7 +659,7 @@
         </form>
     </div><!-- side panel -->
 
-    <!--<script data-cfasync="false" src="{{asset('../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>-->
+    <script data-cfasync="false" src="{{asset('../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>
         <script src="{{asset('js/main.min.js')}}"></script>
         <script src="{{asset('js/script.js')}}"></script>
     <script src="{{asset('js/map-init.js')}}"></script>

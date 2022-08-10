@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,25 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function search(){
+    public function terms()
+    {
+        return view('terms');
+    }
+
+    public function notifications(){
+        return view('notifications');
+    }
+
+    public function deleteNotification(Request $request){
+        $notification = $request->get('notification');
+        $notification = \App\Models\Notification::query()->where('id',$notification)->first();
+        $notification->read_at = date('Y-m-d h:i:s');
+        $notification->save();
+        return redirect(url()->previous());
+    }
+
+    public function search()
+    {
         return view('search');
     }
 

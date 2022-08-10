@@ -14,7 +14,7 @@
         min-width: 211px;
         width: 211px;
     }
-    
+
     .page-infos > span {
         font-weight: 600;
     }
@@ -1072,7 +1072,7 @@
     .notifi-meta {
         width: 77%;
     }
-    .notification-box > ul li > i.del {
+    .notification-box > ul li > i.del, .notification-box > ul li > button > i.del {
         width: 100%;
     }
     #people-list figure {

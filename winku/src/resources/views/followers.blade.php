@@ -142,7 +142,7 @@
                                     <div class="about">
                                         <div class="centerBlock d-flex flex-column personal">
                                                 @foreach(\App\Models\Follower::query()->where('user_id', User::query()->where('username',$username)->first()->id)->get() as $follower)
-                                                <p class="m-2">
+                                                <p class="m-2" style="cursor:pointer" onclick="window.location.href='{{url('/'.$follower->follower->username)}}'">
                                                     <img class="follower_img" src="{{asset('/storage/'.$follower->follower->avatar)}}" align="middle">
                                                     <span class="username">{{$follower->follower->username}}</span><br>
                                                     <span>{{$follower->follower->name}}</span>

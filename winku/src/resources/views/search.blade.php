@@ -43,7 +43,8 @@
                     let result = document.getElementById('result');
                     for (let user of response.success) {
                         console.log(user);
-                        result.innerHTML += '<p class="m-2"><img class="follower_img" src="/storage/'+user.avatar+'" align="middle"><span class="username">'+user.username+'</span><br><span>'+user.name+'</span></p>';
+                        let urlUsername = "/" + user.username;
+                        result.innerHTML = '<p class="m-2" style="cursor:pointer" onclick="window.location.href=\''+urlUsername+'\'"><img class="follower_img" src="/storage/'+user.avatar+'" align="middle"><span class="username">'+user.username+'</span><br><span>'+user.name+'</span></p>';
                     }
                     console.log(response);
                 },

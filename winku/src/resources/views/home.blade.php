@@ -4,6 +4,7 @@
     @php
     use App\Models\User;
     @endphp
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <section>
         <div class="gap gray-bg">
             <div class="container-fluid">
@@ -68,38 +69,50 @@
                                     <div class="widget">
                                         <h4 class="widget-title">Recent Activity</h4>
                                         <ul class="activitiez">
+                                            @foreach(Auth::user()->unreadNotifications->slice(0,3) as $notification)
                                             <li>
                                                 <div class="activity-meta">
-                                                    <i>10 hours Ago</i>
-                                                    <span><a href="#" title="">Commented on Video posted </a></span>
-                                                    <h6>by <a href="time-line.html">black demon.</a></h6>
+                                                    <i>{{$notification->created_at}}</i>
+                                                    <span>{{$notification->data['message']}}</span>
+                                                    <h6>by <a href="{{url('/'.$notification->data['reactionPlacer']['username'])}}">{{$notification->data['reactionPlacer']['username']}}.</a></h6>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="activity-meta">
-                                                    <i>30 Days Ago</i>
-                                                    <span><a href="#" title="">Posted your status. “Hello guys, how are you?”</a></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="activity-meta">
-                                                    <i>2 Years Ago</i>
-                                                    <span><a href="#" title="">Share a video on her timeline.</a></span>
-                                                    <h6>"<a href="#">you are so funny mr.been.</a>"</h6>
-                                                </div>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                     </div><!-- recent activites -->
                                     <div class="widget">
                                         <h4 class="widget-title">Who's follownig</h4>
-                                        <ul class="followers">
+                                        <ul class="followers" id="ulFollow">
                                             @foreach(\App\Models\Follower::query()->where('user_id', Auth::user()->id)->get() as $follower)
                                                 @if(\App\Models\Follower::query()->where('user_id', $follower->follower->id)->where('follower_id', Auth::user()->id)->first() === null)
-                                            <li>
+                                            <li id="liFollow{{$follower}}">
                                                 <figure><img src="{{asset('/storage/'.$follower->follower->avatar)}}" alt=""></figure>
                                                 <div class="friend-meta">
                                                     <h4><a href="{{url('/'.$follower->follower->username)}}" title="">{{$follower->follower->name}}</a></h4>
-                                                    <a href="{{url('/follow')}}" title="" class="underline">Add Friend</a>
+                                                    <form id="formFollow{{$follower->follower->username}}" method="post" action="{{url('/'.$follower->follower->username.'/follow')}}">
+                                                        @csrf
+                                                        <input type="submit" style="border:none;background:none;padding:0;" value="Add Friend" class="ml-0 underline"/>
+                                                    <!--<a href="{{url('/follow')}}" title="" class="underline">Add Friend</a>-->
+                                                    </form>
+                                                    <script>
+                                                        /*$('#formFollow{{$follower->follower->username}}').on('submit',function(event){
+                                                            event.preventDefault();
+                                                            $.ajax({
+                                                                url: "/"+"{{$follower->follower->username}}"+"/follow-ajax",
+                                                                type: "POST",
+                                                                data: {
+                                                                    "_token": "{{ csrf_token() }}",
+                                                                },
+                                                                success: function (response) {
+                                                                    if(response.success){
+                                                                        let ul = document.getElementById('ulFollow');
+                                                                        let li = document.getElementById('liFollow{{$follower}}');
+                                                                        ul.removeChild(li);
+                                                                    }
+                                                                },
+                                                            })
+                                                        })*/
+                                                    </script>
                                                 </div>
                                             </li>
                                                 @endif
@@ -181,7 +194,7 @@
                                                                                value="{{Auth::user()->id}}"/>
                                                                     </form>
                                                                 @endif
-                                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
                                                                     <script>
                                                                         $('#formLike{{$publication->id}}').on('submit', function (event) {
                                                                             event.preventDefault();

@@ -2345,7 +2345,7 @@ footer .logo {
     transition: all 0.2s linear 0s;
 }
 
-.friend-meta > a {
+.friend-meta > a, .friend-meta > form > input {
     display: inline-block;
     font-size: 12px;
     position: relative;
@@ -4040,7 +4040,7 @@ a.forgot-pwd {
     padding-bottom: 0;
 }
 
-.notification-box > ul li > i.del {
+.notification-box > ul li > i.del, .notification-box > ul li > button > i.del {
     cursor: pointer;
     display: inline-block;
     opacity: 0;

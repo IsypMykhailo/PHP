@@ -18,7 +18,7 @@
 .description > p a,
 .we-reply,
 .sidebar .widget li:hover > a, .sidebar .widget li:hover > i,
-.friend-meta > a,
+.friend-meta > a, .friend-meta > form > input,
 .user-setting > a:hover,
 .we-comet li a.showmore,
 .twiter-feed > li p a,

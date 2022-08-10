@@ -51,64 +51,8 @@
         </div><!-- responsive header -->
 
         <div class="topbar stick">
-            <div class="logo">
+            <div class="logo mt-2 border-0">
                 <a title="" href="{{url('/home')}}"><img src="{{asset('images/logo.png')}}" alt=""></a>
-            </div>
-
-            <div class="top-area">
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto py-2">
-                    <!-- Authentication Links -->
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-
-                        <script>window.location = "/home";</script>
-
-                        <!--<li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>-->
-                    @endguest
-                </ul>
-                <!--<div class="user-img">
-                    <img src="{{asset('images/resources/admin.jpg')}}" alt="">
-                    <span class="status f-online"></span>
-                    <div class="user-setting">
-                        <a href="#" title=""><span class="status f-online"></span>online</a>
-                        <a href="#" title=""><span class="status f-away"></span>away</a>
-                        <a href="#" title=""><span class="status f-off"></span>offline</a>
-                        <a href="#" title=""><i class="ti-user"></i> view profile</a>
-                        <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                        <a href="#" title=""><i class="ti-target"></i>activity log</a>
-                        <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                        <a href="#" title=""><i class="ti-power-off"></i>log out</a>
-                    </div>
-                </div>
-                <span class="ti-menu main-menu" data-ripple=""></span>-->
             </div>
         </div><!-- topbar -->
 
@@ -246,3 +190,4 @@
 </div>
 </body>
 </html>
+

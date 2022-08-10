@@ -23,7 +23,7 @@ $('.user-img').on('click', function() {
 //--- side message box
 $('.friendz-list > li, .chat-users > li').on('click', function() {
 	$('.chat-box').addClass("show");
-	return false;
+	//return false;
 });
 	$('.close-mesage').on('click', function() {
 		$('.chat-box').removeClass("show");
@@ -48,7 +48,7 @@ $('.friendz-list > li, .chat-users > li').on('click', function() {
 // delete notifications
 $('.notification-box > ul li > i.del').on("click", function(){
     $(this).parent().slideUp();
-	return false;
+	//return false;
   });
 
 /*--- socials menu scritp ---*/

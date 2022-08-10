@@ -6,6 +6,10 @@ use App\Helpers\Redirect;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Publication;
+use App\Models\User;
+use App\Notifications\Commented;
+use App\Notifications\Followed;
+use App\Notifications\Liked;
 use Illuminate\Http\Request;
 
 class PublicationController extends Controller
@@ -15,6 +19,10 @@ class PublicationController extends Controller
             'publication_id'=>$request->publication_id,
             'user_id'=>$request->user_id
         ]);
+        $publication = Publication::query()->where('id',$request->publication_id)->first();
+        $me = User::query()->where('id', $publication->user_id)->first();
+        $user = User::query()->where('id',$request->user_id)->first();
+        $me->notify(new Liked($user, $publication));
         return response()->json(['success'=>count(Publication::query()->where('id',$request->publication_id)->first()->likes->all())]);
         //return redirect(url()->previous());
     }
@@ -30,6 +38,10 @@ class PublicationController extends Controller
             'user_id'=>$request->user_id,
             'text'=>$request->text
         ]);
+        $publication = Publication::query()->where('id',$request->publication_id)->first();
+        $me = User::query()->where('id', $publication->user_id)->first();
+        $user = User::query()->where('id',$request->user_id)->first();
+        $me->notify(new Commented($user, $publication));
         $comment = Comment::query()->where('publication_id',$request->publication_id)->first();
         return response()->json(['success'=>$comment]);
     }

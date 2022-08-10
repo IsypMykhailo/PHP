@@ -3,40 +3,23 @@
 @section('content')
     @php
         use App\Models\User;
-        $username = str_replace('/following','',$_SERVER['REQUEST_URI']);
-        $username = str_replace('/','',$username);
+        $username = str_replace('/notifications','',$_SERVER['REQUEST_URI']);
+        $username = str_replace('/','',$_SERVER['REQUEST_URI'])
     @endphp
     <section>
         <div class="feature-photo">
             <figure><img
-                    src="{{asset('/storage/'.User::query()->where('username', $username)->first()->profile->profileBackground)}}"
+                    src="{{asset('/storage/'.Auth::user()->profile->profileBackground)}}"
                     alt=""></figure>
             <div class="add-btn">
-                @if(User::query()->where('username', $username)->first()->followers !== null)
-                    <span>{{count(User::query()->where('username', $username)->first()->followers)}} followers</span>
+                @if(Auth::user()->followers !== null)
+                    <span>{{count(Auth::user()->followers)}} followers</span>
                 @else
                     <span>0 followers</span>
                 @endif
-                @if($username !== Auth::user()->username &&
-                    \App\Models\Follower::query()->where('follower_id', Auth::user()->id)->
-                        where('user_id', User::query()->where('username', $username)->first()->id)->first() === null)
-                    <form method="post" action="{{url('/'.$username.'/follow')}}">
-                        @csrf
-                        <input type="submit" value="Follow"/>
-                        <!--<a href="#" title="" data-ripple="">Follow</a>-->
-                    </form>
-                @elseif($username !== Auth::user()->username &&
-                        \App\Models\Follower::query()->where('follower_id', Auth::user()->id)->
-                        where('user_id', User::query()->where('username', $username)->first()->id)->first() !== null)
-                    <form method="post" action="{{url('/'.$username.'/unfollow')}}">
-                        @csrf
-                        <input type="submit" value="Unfollow"/>
-                        <!--<a href="#" title="" data-ripple="">Follow</a>-->
-                    </form>
-                @endif
             </div>
             <form class="edit-phto" id="editBackground" method="POST"
-                  action="{{url('/' . $username . '/updateBackground')}}" enctype="multipart/form-data">
+                  action="{{url('/' . Auth::user()->username . '/updateBackground')}}" enctype="multipart/form-data">
                 @csrf
                 <i class="fa fa-camera-retro"></i>
                 <label class="fileContainer">
@@ -50,10 +33,10 @@
                         <div class="user-avatar">
                             <figure>
                                 <img
-                                    src="{{asset('/storage/'.User::query()->where('username', $username)->first()->avatar)}}"
+                                    src="{{asset('/storage/'.Auth::user()->avatar)}}"
                                     alt="">
                                 <form class="edit-phto" id="editAvatar" method="POST"
-                                      action="{{url('/' . $username . '/updateAvatar')}}" enctype="multipart/form-data">
+                                      action="{{url('/' . Auth::user()->username . '/updateAvatar')}}" enctype="multipart/form-data">
                                     @csrf
                                     <i class="fa fa-camera-retro"></i>
                                     <label class="fileContainer">
@@ -68,20 +51,20 @@
                         <div class="timeline-info">
                             <ul>
                                 <li class="admin-name">
-                                    <h5>{{User::query()->where('username', $username)->first()->name}}</h5>
+                                    <h5>{{Auth::user()->name}}</h5>
                                     <span>
-                                        @if(User::query()->where('username', $username)->first()->role_id===1)
+                                        @if(Auth::user()->role_id===1)
                                             Admin
                                         @endif
                                     </span>
                                 </li>
                                 <li>
                                     <!--<a class="" href="time-line.html" title="" data-ripple="">time line</a>-->
-                                    <a class="" href="{{url('/'.$username.'/posts')}}" title="" data-ripple="">Posts</a>
-                                    <a class="" href="{{url('/'.$username.'/followers')}}" title="" data-ripple="">Followers</a>
-                                    <a class="active" href="{{url('/'.$username.'/following')}}" title="" data-ripple="">Following</a>
+                                    <a class="" href="{{url('/'.Auth::user()->username.'/posts')}}" title="" data-ripple="">Posts</a>
+                                    <a class="" href="{{url('/'.Auth::user()->username.'/followers')}}" title="" data-ripple="">Followers</a>
+                                    <a class="" href="{{url('/'.Auth::user()->username.'/following')}}" title="" data-ripple="">Following</a>
                                     <!--<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>-->
-                                    <a class="" href="{{url('/'.$username)}}" title="" data-ripple="">about</a>
+                                    <a class="active" href="{{url('/'.Auth::user()->username)}}" title="" data-ripple="">about</a>
 
                                 </li>
                             </ul>
@@ -134,20 +117,28 @@
                                     </div>-->
                                 </aside>
                             </div><!-- sidebar -->
-                            <div class="col-lg-1">
-
-                            </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="central-meta">
-                                    <div class="about">
-                                        <div class="centerBlock d-flex flex-column personal">
-                                            @foreach(\App\Models\Follower::query()->where('follower_id', User::query()->where('username',$username)->first()->id)->get() as $follower)
-                                                <p class="m-2" style="cursor:pointer;" onclick="window.location.href='{{url('/'.$follower->user->username)}}'">
-                                                    <img class="follower_img" src="{{asset('/storage/'.$follower->user->avatar)}}" align="middle">
-                                                    <span class="username">{{$follower->user->username}}</span><br>
-                                                    <span>{{$follower->user->name}}</span>
-                                                </p>
-                                            @endforeach
+                                    <div class="editing-interest">
+                                        <h5 class="f-title"><i class="ti-bell"></i>All Notifications </h5>
+                                        <div class="notification-box">
+                                            <ul>
+                                                @foreach(Auth::user()->unreadNotifications as $notification)
+                                                <li>
+                                                    <figure><img src="{{asset('/storage/'.$notification->data['reactionPlacer']['avatar'])}}" alt=""></figure>
+                                                    <div class="notifi-meta">
+                                                        <p>{{$notification->data['message']}} @if($notification->data['post']['image']!=='')<img style="height:45px;" class="ml-2" src="{{asset('/storage/'.$notification->data['post']['image'])}}">@endif</p>
+                                                        <span>{{$notification->created_at}}</span>
+                                                    </div>
+
+                                                    <i onclick="document.getElementById('formDelete{{$notification->id}}').submit();" class="del fa fa-close"></i>
+                                                    <form id="formDelete{{$notification->id}}" method="post" action="{{url('/deleteNotification')}}">
+                                                        @csrf
+                                                        <input type="hidden" name="notification" value="{{$notification->id}}"/>
+                                                    </form>
+                                                </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -160,5 +151,3 @@
         </div>
     </section>
 @endsection
-
-
