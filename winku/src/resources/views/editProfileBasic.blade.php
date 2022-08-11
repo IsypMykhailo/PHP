@@ -141,94 +141,6 @@
                                                 <input type="text" name="phone" value="{{Auth::user()->profile->phone}}"/>
                                                 <label class="control-label" for="input">Phone No.</label><i class="mtrl-select"></i>
                                             </div>
-                                            <!--<div class="dob">
-                                                <div class="form-group">
-                                                    <select>
-                                                        <option value="Day">Day</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-                                                        <option>10</option>
-                                                        <option>11</option>
-                                                        <option>12</option>
-                                                        <option>13</option>
-                                                        <option>14</option>
-                                                        <option>15</option>
-                                                        <option>16</option>
-                                                        <option>17</option>
-                                                        <option>18</option>
-                                                        <option>19</option>
-                                                        <option>20</option>
-                                                        <option>21</option>
-                                                        <option>22</option>
-                                                        <option>23</option>
-                                                        <option>24</option>
-                                                        <option>25</option>
-                                                        <option>26</option>
-                                                        <option>27</option>
-                                                        <option>28</option>
-                                                        <option>29</option>
-                                                        <option>30</option>
-                                                        <option>31</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <select>
-                                                        <option value="month">Month</option>
-                                                        <option>Jan</option>
-                                                        <option>Feb</option>
-                                                        <option>Mar</option>
-                                                        <option>Apr</option>
-                                                        <option>May</option>
-                                                        <option>Jun</option>
-                                                        <option>Jul</option>
-                                                        <option>Aug</option>
-                                                        <option>Sep</option>
-                                                        <option>Oct</option>
-                                                        <option>Nov</option>
-                                                        <option>Dec</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <select>
-                                                        <option value="year">Year</option>
-                                                        <option>2000</option>
-                                                        <option>2001</option>
-                                                        <option>2002</option>
-                                                        <option>2004</option>
-                                                        <option>2005</option>
-                                                        <option>2006</option>
-                                                        <option>2007</option>
-                                                        <option>2008</option>
-                                                        <option>2009</option>
-                                                        <option>2010</option>
-                                                        <option>2011</option>
-                                                        <option>2012</option>
-                                                    </select>
-                                                </div>
-                                            </div>-->
-                                            <!--<div class="form-radio">
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" checked="checked" name="radio"><i class="check-box"></i>Male
-                                                    </label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" name="radio"><i class="check-box"></i>Female
-                                                    </label>
-                                                </div>
-                                            </div>-->
-                                            <!--<div class="form-group">
-                                                <input type="text" required="required"/>
-                                                <label class="control-label" for="input">City</label><i class="mtrl-select"></i>
-                                            </div>-->
                                             <div class="form-group">
                                                 <select name="location">
                                                     @php
@@ -262,8 +174,16 @@
                                         </form>
                                     </div>
                                 </div>
+                                <div class="central-meta">
+                                    <form method="post" action="{{url('/'.Auth::user()->username.'/deleteAccount')}}">
+                                        @csrf
+                                        <h5 class="f-title"><i class="ti-info-alt"></i> Delete Account</h5>
+                                        <div class="submit-btns mt-0">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div><!-- centerl meta -->
-
                         </div>
                     </div>
                 </div>

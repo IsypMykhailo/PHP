@@ -58,7 +58,7 @@
                                             </li>-->
                                             <li>
                                                 <i class="ti-user"></i>
-                                                <a href="#" title="">web chat</a>
+                                                <a href="{{url('/messages')}}" title="">chat</a>
                                             </li>
                                             <li>
                                                 <i class="ti-power-off"></i>

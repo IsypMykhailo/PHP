@@ -429,8 +429,8 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
-                            <div class="dropdowns">
+                            <a href="{{url('/messages')}}" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
+                            <!--<div class="dropdowns">
                                 <span>5 New Messages</span>
                                 <ul class="drops-menu">
                                     <li>
@@ -490,7 +490,7 @@
                                     </li>
                                 </ul>
                                 <a href="messages.html" title="" class="more-mesg">view more</a>
-                            </div>
+                            </div>-->
                         </li>
                     </ul>
                     <div class="user-img">

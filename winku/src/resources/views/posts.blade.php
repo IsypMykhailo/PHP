@@ -35,6 +35,7 @@
                     </form>
                 @endif
             </div>
+            @if(Auth::user()->username === $username)
             <form class="edit-phto" id="editBackground" method="POST"
                   action="{{url('/' . $username . '/updateBackground')}}" enctype="multipart/form-data">
                 @csrf
@@ -44,6 +45,7 @@
                     <input onchange="this.form.submit();" id="background" name="background" type="file"/>
                 </label>
             </form>
+            @endif
             <div class="container-fluid">
                 <div class="row merged">
                     <div class="col-lg-2 col-sm-3">
@@ -52,6 +54,7 @@
                                 <img
                                     src="{{asset('/storage/'.User::query()->where('username', $username)->first()->avatar)}}"
                                     alt="">
+                                @if(Auth::user()->username === $username)
                                 <form class="edit-phto" id="editAvatar" method="POST"
                                       action="{{url('/' . $username . '/updateAvatar')}}" enctype="multipart/form-data">
                                     @csrf
@@ -61,6 +64,7 @@
                                         <input onchange="this.form.submit();" id="avatar" name="avatar" type="file"/>
                                     </label>
                                 </form>
+                                @endif
                             </figure>
                         </div>
                     </div>
@@ -319,7 +323,7 @@
                                                                     </script>
                                                                 </li>
                                                                 <li>
-															<span class="comment" data-toggle="tooltip"
+															<span class="like" style="color:black;font-size:14px;font-weight:bold;" data-toggle="tooltip"
                                                                   title="Comments">
 																<i class="fa fa-comments-o"></i>
 																{{count($publication->comments->all())}}
@@ -406,6 +410,13 @@
                                                                            value="{{Auth::user()->id}}"/>
                                                                     <button type="submit">Send</button>
                                                                 </form>
+                                                                @if(Auth::user()->username === $username)
+                                                                <form method="post" action="{{url('/deletePost')}}">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{$publication->id}}" name="publication_id">
+                                                                    <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                                                                </form>
+                                                                @endif
                                                             </div>
                                                         </li>
                                                     </ul>

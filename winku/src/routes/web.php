@@ -37,7 +37,9 @@ Route::get('/contact', function(){
 });
 Route::get('/email_confirm/{username}', [App\Http\Controllers\HomeController::class, 'emailConfirmation'])->name('emailConfirmation');
 Route::get('/notifications', [App\Http\Controllers\HomeController::class, 'notifications'])->name('notifications');
+Route::get('/messages', [App\Http\Controllers\HomeController::class, 'messages'])->name('messages');
 Route::get('/{username}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+Route::post('/{username}/deleteAccount', [App\Http\Controllers\HomeController::class, 'deleteAccount'])->name('deleteAccount');
 Route::post('/{username}/updateAvatar', [App\Http\Controllers\EditProfileController::class, 'editAvatar'])->name('editAvatar');
 Route::post('/{username}/updateBackground', [App\Http\Controllers\EditProfileController::class, 'editBackground'])->name('editBackground');
 Route::get('/{username}/edit-profile-basic', [App\Http\Controllers\EditProfileController::class, 'editProfileBasic'])->name('editProfileBasic');
@@ -56,3 +58,4 @@ Route::post('/unlike', [App\Http\Controllers\PublicationController::class, 'unli
 Route::post('/comment', [App\Http\Controllers\PublicationController::class, 'comment'])->name('comment');
 Route::post('/search-form', [App\Http\Controllers\HomeController::class, 'search_form'])->name('search_form');
 Route::post('/deleteNotification', [App\Http\Controllers\HomeController::class, 'deleteNotification'])->name('deleteNotification');
+Route::post('/deletePost', [App\Http\Controllers\PublicationController::class, 'deletePost'])->name('deletePost');

@@ -35,6 +35,7 @@
                     </form>
                 @endif
             </div>
+            @if(Auth::user()->username === $username)
             <form class="edit-phto" id="editBackground" method="POST"
                   action="{{url('/' . $username . '/updateBackground')}}" enctype="multipart/form-data">
                 @csrf
@@ -44,6 +45,7 @@
                     <input onchange="this.form.submit();" id="background" name="background" type="file"/>
                 </label>
             </form>
+            @endif
             <div class="container-fluid">
                 <div class="row merged">
                     <div class="col-lg-2 col-sm-3">
@@ -52,6 +54,7 @@
                                 <img
                                     src="{{asset('/storage/'.User::query()->where('username', $username)->first()->avatar)}}"
                                     alt="">
+                                @if(Auth::user()->username === $username)
                                 <form class="edit-phto" id="editAvatar" method="POST"
                                       action="{{url('/' . $username . '/updateAvatar')}}" enctype="multipart/form-data">
                                     @csrf
@@ -61,6 +64,7 @@
                                         <input onchange="this.form.submit();" id="avatar" name="avatar" type="file"/>
                                     </label>
                                 </form>
+                                @endif
                             </figure>
                         </div>
                     </div>

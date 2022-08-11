@@ -11,6 +11,7 @@ use App\Notifications\Commented;
 use App\Notifications\Followed;
 use App\Notifications\Liked;
 use Illuminate\Http\Request;
+use Symfony\Component\Routing\Matcher\RedirectableUrlMatcher;
 
 class PublicationController extends Controller
 {
@@ -44,5 +45,16 @@ class PublicationController extends Controller
         $me->notify(new Commented($user, $publication));
         $comment = Comment::query()->where('publication_id',$request->publication_id)->first();
         return response()->json(['success'=>$comment]);
+    }
+
+    public function deleteComment(Request $request){
+
+    }
+
+    public function deletePost(Request $request){
+        Like::query()->where('publication_id',$request->get('publication_id'))->delete();
+        Comment::query()->where('publication_id',$request->get('publication_id'))->delete();
+        Publication::query()->where('id',$request->get('publication_id'))->first()->delete();
+        return redirect(url()->previous());
     }
 }
