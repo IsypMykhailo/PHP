@@ -77,13 +77,13 @@
                                         @endif
                                     </span>
                                 </li>
-                                <li>
+                                <li id="elContainer">
                                     <!--<a class="" href="time-line.html" title="" data-ripple="">time line</a>-->
-                                    <a class="" href="{{url('/'.$username.'/posts')}}" title="" data-ripple="">Posts</a>
-                                    <a class="" href="{{url('/'.$username.'/followers')}}" title="" data-ripple="">Followers</a>
-                                    <a class="" href="{{url('/'.$username.'/following')}}" title="" data-ripple="">Following</a>
+                                    <a class="" id="posts" href="{{url('/'.$username.'/posts')}}" title="" data-ripple="">Posts</a>
+                                    <a class="" id="followers" href="{{url('/'.$username.'/followers')}}" title="" data-ripple="">Followers</a>
+                                    <a class="" id="following" href="{{url('/'.$username.'/following')}}" title="" data-ripple="">Following</a>
                                     <!--<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>-->
-                                    <a class="active" href="{{url('/'.$username)}}" title="" data-ripple="">about</a>
+                                    <a class="" id="about" href="{{url('/'.$username)}}" title="" data-ripple="">about</a>
 
                                 </li>
                             </ul>
@@ -93,6 +93,6 @@
             </div>
         </div>
     </section><!-- top area -->
-                            @yield('content2')
+    @yield('content2')
 
 @endsection

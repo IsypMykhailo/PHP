@@ -151,7 +151,7 @@ class EditProfileController extends Controller
             $username = Auth::user()->username;
             //$username = User::query()->where('username', '===', '');
             $followers = \App\Models\Follower::query()->where('user_id', User::query()->where('username',$username)->first()->id)->get();
-            $followers = $this->paginate($followers);
+            $followers = $this->paginate($followers,10);
             return view('followers',compact('followers','username'));
         }
     }
@@ -171,7 +171,9 @@ class EditProfileController extends Controller
         }
         else {
             $username = Auth::user()->username;
-            return view('following',compact('username'));
+            $followers = \App\Models\Follower::query()->where('follower_id', User::query()->where('username',$username)->first()->id)->get();
+            $followers = $this->paginate($followers,10);
+            return view('following',compact('followers','username'));
         }
     }
 
@@ -181,7 +183,9 @@ class EditProfileController extends Controller
         }
         else {
             $username = Auth::user()->username;
-            return view('posts',compact('username'));
+            $publications = User::query()->where('username',$username)->first()->publications->all();
+            $publications = $this->paginate($publications,5);
+            return view('posts',compact('username', 'publications'));
         }
     }
 
