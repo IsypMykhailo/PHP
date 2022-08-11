@@ -7,6 +7,9 @@ use App\Models\Publication;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +24,7 @@ class EditProfileController extends Controller
         if (str_replace('/edit-profile-basic', '', $_SERVER['REQUEST_URI']) !== '/' . Auth::user()->username)
             return view('no_user');
         else
-            return view('editProfileBasic');
+            return view('editProfileBasic',compact('username'));
     }
 
     public function editAvatar(Request $request, $username)
@@ -113,7 +116,7 @@ class EditProfileController extends Controller
             $username = Auth::user()->username;
             (new Redirect)->redirect('/' . $username);
             //$this->redirect('/' . $username);
-            return view('profile');
+            return view('profile','username');
         }
     }
 
@@ -123,7 +126,7 @@ class EditProfileController extends Controller
         if (str_replace('/changePassword', '', $_SERVER['REQUEST_URI']) !== '/' . Auth::user()->username)
             return view('no_user');
         else
-            return view('changePassword');
+            return view('changePassword',compact('username'));
     }
 
     public function updatePassword(Request $request, $username){
@@ -136,7 +139,7 @@ class EditProfileController extends Controller
             $user->save();
             (new Redirect)->redirect('/' . $username);
             //$this->redirect('/' . $username);
-            return view('profile');
+            return view('profile',compact('username'));
         }
     }
 
@@ -147,8 +150,19 @@ class EditProfileController extends Controller
         else {
             $username = Auth::user()->username;
             //$username = User::query()->where('username', '===', '');
-            return view('followers');
+            $followers = \App\Models\Follower::query()->where('user_id', User::query()->where('username',$username)->first()->id)->get();
+            $followers = $this->paginate($followers);
+            return view('followers',compact('followers','username'));
         }
+    }
+
+    public function paginate($items, $perPage = 2, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath()
+        ]);
     }
 
     public function following($username){
@@ -157,7 +171,7 @@ class EditProfileController extends Controller
         }
         else {
             $username = Auth::user()->username;
-            return view('following');
+            return view('following',compact('username'));
         }
     }
 
@@ -167,7 +181,7 @@ class EditProfileController extends Controller
         }
         else {
             $username = Auth::user()->username;
-            return view('posts');
+            return view('posts',compact('username'));
         }
     }
 

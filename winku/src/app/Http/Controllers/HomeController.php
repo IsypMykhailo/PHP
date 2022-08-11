@@ -9,8 +9,12 @@ use App\Models\Profile;
 use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use function Sodium\add;
 
 class HomeController extends Controller
 {
@@ -31,7 +35,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $publications = new \ArrayObject();
+        foreach(Follower::query()->where('follower_id', Auth::user()->id)->get() as $following){
+            foreach (Publication::query()->where('user_id', $following->user_id)->get() as $publication){
+                $publications->append($publication);
+            }
+        }
+        $publications = $this->paginate($publications);
+        return view('home', compact('publications'));
+    }
+
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath()
+        ]);
+        /*$page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);*/
     }
 
     public function terms()
@@ -70,9 +93,9 @@ class HomeController extends Controller
             return view('no_user');
         }
         else {
-            $username = Auth::user()->username;
+            $username = User::query()->where('username', $username)->first()->username;
             //$username = User::query()->where('username', '===', '');
-            return view('profile');
+            return view('profile',compact('username'));
         }
     }
 
